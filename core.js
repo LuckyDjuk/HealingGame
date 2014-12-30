@@ -2,12 +2,6 @@
     Core.js
 */
 
-//var raiddmg = 698125 ; 
-//var bossdmg = 1100000;
-
-//var aggro = 0; // Test, change this in browser console if you want the boss to attack a new player (0-9)
-//var aggro2 = 1;
-
 var classColorsTxT = ["#C41F3B", "#FF7D0A", "#ABD473", "#69CCF0", "#00FF96",
     "#F58CBA", "#FFFFFF", "#FFF569", "#0070DE", "#9482C9", "#C79C6E"
     ];
@@ -27,8 +21,7 @@ function clearAllIntervals(){
 
 function init() {
     // --- reset stuff ---
-    aggro = 0; 
-    aggro2 = 1;
+    
     clearAllIntervals();
     gamethread = [];
     raidgrp = [];
@@ -41,43 +34,16 @@ function init() {
     
     raid[0].name = "Blome";
     raid[0].classID = 1; // Druid
-/*
-    raid[1].stats.armorPercent = 74.23;
-  
-    raid[1].stats.dodge = 65;
-    raid[1].stats.maxHealth = 1200000;
-    raid[1].stats.currentHealth = 1200000;
-    raid[1].classID = 5; // Paladin
-*/
-    addKeydownListener();
+    
+    addInputListener();
     buildUnitFrames();   
     //main thread, drawing only
-    gamethread.push(setInterval(updateScreen, 250));
-    // These 3 are for testing
-    /*
-    gamethread.push(setInterval(BossSim, 1380));
-    gamethread.push(setInterval(BossSim2, 1280));
-       
-    // Single target heals test 
-    gamethread.push(setInterval(function(){Heal(getMostInjured(1))}, 1270));
-    gamethread.push(setInterval(function(){Heal(getMostInjured(1))}, 1255));
-    gamethread.push(setInterval(function(){Heal(getMostInjured(1))}, 1355));
-    gamethread.push(setInterval(function(){Heal(getMostInjured(1))}, 1355));
-    gamethread.push(setInterval(function(){Heal(getMostInjured(1))}, 1355));
-
-    // aoe heals test
-    gamethread.push(setInterval(raidaoeheal, 1355));
-    gamethread.push(setInterval(raidaoe, 2100));             
-    gamethread.push(setInterval(raidaoehots, 1055));
-    gamethread.push(setInterval(raidaoeheal, 1555));
-    gamethread.push(setInterval(raidaoeheal, 1455));
-               
-    */         
+    gamethread.push(setInterval(updateScreen, 250));       
 }
 
 function raidaoe(){
     for(var x = 0; x < raid.length; x++){
-        raid[x].changeHealth(-raiddmg, "physical", "bah", "Garrosh Hellscream", "damage");
+        raid[x].changeHealth(-50000, "physical", "bah", "Garrosh Hellscream", "damage");
     }
 }
 
@@ -175,41 +141,5 @@ function drawChat2() {
     for (line = 0; line < totalLines; line++) {
         temp = document.getElementById("y" + line);
         temp.innerHTML = chatData[line];
-    }
-}
-
-// All functions below is for testing/fun
-function BossSim() {
-    var meleeDamage = Math.floor(Math.random() * 80000 + bossdmg);
-
-    if (raid[aggro].isAlive) {
-        raid[aggro].changeHealth(-meleeDamage, "physical", "melee", "Garrosh Hellscream", "damage");
-    } else {
-        if (aggro === raidsize-1) {
-            return;
-        }
-        aggro += 1;
-    }
-}
-
-function BossSim2() {
-    var meleeDamage = Math.floor(Math.random() * 80000 + bossdmg);
-
-    if (raid[aggro2].isAlive) {
-        raid[aggro2].changeHealth(-meleeDamage, "physical", "melee", "Garrosh Hellscream", "damage");
-    } else {
-        if (aggro2 === raidsize-1) {
-            return;
-        }
-        aggro2 += 1;
-    }
-}
-
-function Heal(player,amount) {
-    var p = player[0];
-
-    var a = amount || restosham.healing_surge();
-    if (p.isAlive) {
-        p.changeHealth(a);
     }
 }
