@@ -1,7 +1,5 @@
 html{
 	overflow: hidden;
-	
-   
 }
 
 body{
@@ -70,15 +68,15 @@ div#bgen{
 	position: relative;
 }
 img#testen {
--webkit-transform-origin: bottom left;
-position: absolute;
-overflow: hidden;
-border-right-color: black;
-border-width: 50px;
-border-style: solid;
-border-top: 0;
-border-bottom: 0;
-border-left: 0;
+    -webkit-transform-origin: bottom left;
+    position: absolute;
+    overflow: hidden;
+    border-right-color: black;
+    border-width: 50px;
+    border-style: solid;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
 }
 
 img#cvr1{
@@ -143,18 +141,18 @@ div#bg2{
 }
 
 input#consoleInput {
-background: transparent;
-width: 100%;
-height: 50px;
-color: white;
-font: helvetica;
-/* font-family: Helvetica; */
-font-size: 11;
-padding: 15;
-border-style: solid;
-border-color: gray;
-font-weight: bold;
-font-family: Helvetica;
+    background: transparent;
+    width: 100%;
+    height: 50px;
+    color: white;
+    font: helvetica;
+    /* font-family: Helvetica; */
+    font-size: 11;
+    padding: 15;
+    border-style: solid;
+    border-color: gray;
+    font-weight: bold;
+    font-family: Helvetica;
 }
 
 div#auraContainer
@@ -208,10 +206,6 @@ div#pagewrap
 {
 	width: 100%;
 }
-
-
-
-
 
 div#bosstimers
 {
@@ -305,7 +299,6 @@ ul#dbg_chat_cont
 	font-size: 10px;
 	margin-left: 0px;
 }
-
 
 div#achivement
 {
@@ -404,8 +397,6 @@ div#dbg_chat
 	padding: 40px;
 	width: 500px;
 }
-
-
 
 h1#achive_name
 {

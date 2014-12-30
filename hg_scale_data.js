@@ -19,24 +19,16 @@ var sc_class_ids = {
 }
 
 function getScaleData(request, ClassIdOrName, level){
-
     var classId;
     var level = level || 90; 
-  
-
 
     if (typeof ClassIdOrName === 'string'){
-        
         classId = sc_class_ids[ClassIdOrName];
-      
-
     }
 
     else if (typeof ClassIdOrName === 'number'){
         classId = ClassIdOrName;
     }
-
-
     switch(request){
 
       case 'HP_PER_STAM':
@@ -2765,5 +2757,3 @@ var sc_item_socket_cost_per_level = [
  160.000000000000000,  160.000000000000000,  160.000000000000000,  160.000000000000000,  160.000000000000000, 
  160.000000000000000,  160.000000000000000,  160.000000000000000,  160.000000000000000, 
 ];
-
-

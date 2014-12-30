@@ -2,45 +2,36 @@
     <head>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-       <script src="inputHandling.js"></script>
-     <script src="chat-class.js"></script>
-
+        <script src="inputHandling.js"></script>
+        <script src="chat-class.js"></script>
         <script src="core.js"></script>
-      
-                <script src="hg_spell_data.js"></script>
-                
-                <script src="raid.js"></script>
-                  
-                <script src="randomnames.js"></script>
-                <script src="hg_scale_data.js"></script>
-               <script src="resto_shaman.js"></script>
-          <script src="playerClass.js"></script>
-                          <script src="parser.js"></script>
+        <script src="hg_spell_data.js"></script>
+        <script src="raid.js"></script>
+        <script src="randomnames.js"></script>
+        <script src="hg_scale_data.js"></script>
+        <script src="resto_shaman.js"></script>
+        <script src="playerClass.js"></script>
+        <script src="parser.js"></script>
 
- 
         <link href='healingGame.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
     </head>
 
-    <body onload="init()">
-          
-        
+    <body onload="init()">        
         <div id = "optionMenu" onclick ="alert('work in progress')"></div>
         <div id ="pagewrap">
-
             <div id="bg">
                 <div id = "raidcontainer"></div>
-	            <div id = "targetFrame">
-		            <div id  ="UI_target"></div>
-		            
-		           
-	            </div>
-	            <div id = "deathCounterFrame">
-	                <p id = "_deathCount">0</p>
-	            </div>
+                <div id = "targetFrame">
+                    <div id  ="UI_target"></div>
+
+
+                </div>
+                <div id = "deathCounterFrame">
+                    <p id = "_deathCount">0</p>
+                </div>
             </div>
-    
             <div id = "chatte">
 	            <ul id ="chatcont">
 		            <li id = "m0"></li>
@@ -51,49 +42,27 @@
 		            <li id = "m5"></li>
 		            <li id = "m6"></li>
 	            </ul>
-	          
- 				
   				<input id="consoleInput" type="text"><br>
-  				
             </div>
-
-
         </div>
         <div id ="spellbar_cont"> 
             <ul id = "spellbar">
                 <li id = "testspell"> 
                     <div id = "timer">
                         <div id ="timer1">
-                            <div id = "sq1_arm">
-
-                            </div>
-
-
+                            <div id = "sq1_arm"></div>
                             <div id = "sq2_arm">
                                 <img id ="testen" src ="images/test.png" width="50px" height ="50px"></img>
                                  <div id ="bgen"></div>
                             </div>
-
-
-
-                            <div id = "sq3_arm">
-
-                            </div>
-
-
-                            <div id = "sq4_arm">
-
-                            </div>
+                            <div id = "sq3_arm"></div>
+                            <div id = "sq4_arm"></div>
                         </div>
                     </div>
                 </li>
-
-                </ul>
-
-
+            </ul>
         </div>
         <div id = "cl_input_window">
-
             <textarea id = "cl_input" type ="text">11/18 05:27:37.903  SWING_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,1140,-1,1,0,0,0,nil,nil,nil,nil
 11/18 05:27:37.903  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
 11/18 05:27:37.903  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
@@ -296,7 +265,7 @@
 11/18 05:30:17.381  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,61391,"Typhoon",0x8,DEBUFF
 11/18 05:30:33.157  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,154796,"Touch of Elune - Day",0x1,BUFF
 11/18 05:30:33.157  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,154797,"Touch of Elune - Night",0x1,BUFF
-</textarea>
+            </textarea>
         
         </div>
         <div id = "dbg_chat">
@@ -312,12 +281,7 @@
                     <li id = "y8"></li>
                     <li id = "y9"></li>
                 </ul>
-              
-                
-               
-                
         </div>
         <div id ="options"></div>
-
     </body>
 </html>

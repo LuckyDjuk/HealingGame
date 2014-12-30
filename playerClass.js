@@ -1,4 +1,3 @@
-
 function Player() {
 
     this.name = generateName();
@@ -34,11 +33,9 @@ function Player() {
     this.isAlive = true;
     this.absorbs = 0;
     
-
     this.isCasting = false;
     this.castProgress = 0;
     this.gdc = 0;
-    
 }
 /*
     this.cast = function(spid){
@@ -99,15 +96,13 @@ function Player() {
     }
 
     */
-
-
 Player.prototype.hasAura = function(auraIDorName){
                 // returns true of false based on the player having the aura.
 };
 
 Player.prototype.getHealthPercent = function () {
         return (this.currentHealth / this.stats.maxHealth) * 100;
-        };
+};
 
 /*
 Player.protoype.hasCooldown = function(spid){
@@ -163,8 +158,7 @@ Player.prototype.changeHealth = function (amount, type, source, casterName, effe
             return;
         }
         //
-
-
+    
         this.currentHealth += amount_cpy;
 
         if (raw_amount_cpy < 0) {
@@ -172,5 +166,3 @@ Player.prototype.changeHealth = function (amount, type, source, casterName, effe
             Math.abs(raw_amount_cpy.toFixed(0) - amount_cpy.toFixed(0)) + " absorbed by Armor)</p> damage to : <p id = 'error'>" + this.name + "</p>");
         }
     };
-
-

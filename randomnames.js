@@ -1,13 +1,8 @@
-
-function generateName(){
-		
+function generateName(){		
   		var names = randomnames.split(",")
   		var x = Math.round(Math.random()*names.length-1);
-  		
 		return names[x];
 }
-
-
 
 var randomnames = "Tiondel, \
 Elynd, \

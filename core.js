@@ -25,10 +25,7 @@ function clearAllIntervals(){
          }
 }
 
-
 function init() {
-    
-
     // --- reset stuff ---
     aggro = 0; 
     aggro2 = 1;
@@ -39,7 +36,6 @@ function init() {
     raid = []; 
     makeRaid(raidsize);
     // -------------------
-
 
     // Ignore this , im just experimenting. 
     
@@ -52,18 +48,11 @@ function init() {
     raid[1].stats.maxHealth = 1200000;
     raid[1].stats.currentHealth = 1200000;
     raid[1].classID = 5; // Paladin
-    
-    */
-    
-    
+*/
     addKeydownListener();
-   
-    buildUnitFrames();
-
-   
+    buildUnitFrames();   
     //main thread, drawing only
     gamethread.push(setInterval(updateScreen, 250));
-   
     // These 3 are for testing
     /*
     gamethread.push(setInterval(BossSim, 1380));
@@ -83,19 +72,13 @@ function init() {
     gamethread.push(setInterval(raidaoeheal, 1555));
     gamethread.push(setInterval(raidaoeheal, 1455));
                
-    */
-         
-              
-               
+    */         
 }
 
-
 function raidaoe(){
-
     for(var x = 0; x < raid.length; x++){
         raid[x].changeHealth(-raiddmg, "physical", "bah", "Garrosh Hellscream", "damage");
     }
-
 }
 
 function raidaoeheal(){
@@ -103,7 +86,6 @@ function raidaoeheal(){
     for(var x = 0; x < mostInjured.length; x++){
         mostInjured[x].changeHealth(225000);
     }
-
 }
 
 function raidaoehots(){
@@ -111,16 +93,12 @@ function raidaoehots(){
     for(var x = 0; x < mostInjured.length; x++){
         mostInjured[x].changeHealth(65000);
     }
-
 }
 
-
-function updateScreen() { // updates the UI
-    
+function updateScreen() { // updates the UI   
     drawUnitFrames();
     drawChat2();
     drawChat(); 
-
 }
 
 function drawUnitFrames(){
@@ -131,28 +109,19 @@ function drawUnitFrames(){
         healthFrameID;
     // Goes through every raidmemeber and changes the width of their health frames width based on what HP they got.
     for (playerID = 0; playerID < raidsize; playerID++) {
-
-
         player = raid[playerID];
-
         health = player.getHealthPercent();
-
         healthPercent = health.toFixed(0) + "%";
         healthFrameID = "#health" + playerID;
-
-
+        
         //jquery animation for health bars
        $(healthFrameID).animate({
        width: healthPercent
        }, 200);
-
-
     }
 }
 
-
 function buildUnitFrames() {
-
     var i,
         border,
         name,
@@ -189,10 +158,6 @@ function buildUnitFrames() {
     } 
 }
 
-
-
-
-
 function drawChat() {
     var totalLines = 6;
         
@@ -213,39 +178,29 @@ function drawChat2() {
     }
 }
 
-
-
 // All functions below is for testing/fun
 function BossSim() {
-
-
     var meleeDamage = Math.floor(Math.random() * 80000 + bossdmg);
 
     if (raid[aggro].isAlive) {
         raid[aggro].changeHealth(-meleeDamage, "physical", "melee", "Garrosh Hellscream", "damage");
     } else {
-
         if (aggro === raidsize-1) {
             return;
         }
-
         aggro += 1;
     }
 }
 
 function BossSim2() {
-
-
     var meleeDamage = Math.floor(Math.random() * 80000 + bossdmg);
 
     if (raid[aggro2].isAlive) {
         raid[aggro2].changeHealth(-meleeDamage, "physical", "melee", "Garrosh Hellscream", "damage");
     } else {
-
         if (aggro2 === raidsize-1) {
             return;
         }
-
         aggro2 += 1;
     }
 }
@@ -257,6 +212,4 @@ function Heal(player,amount) {
     if (p.isAlive) {
         p.changeHealth(a);
     }
-    
-
 }
