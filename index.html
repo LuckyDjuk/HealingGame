@@ -1,0 +1,323 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+       <script src="inputHandling.js"></script>
+     <script src="chat-class.js"></script>
+
+        <script src="core.js"></script>
+      
+                <script src="hg_spell_data.js"></script>
+                
+                <script src="raid.js"></script>
+                  
+                <script src="randomnames.js"></script>
+                <script src="hg_scale_data.js"></script>
+               <script src="resto_shaman.js"></script>
+          <script src="playerClass.js"></script>
+                          <script src="parser.js"></script>
+
+ 
+        <link href='healingGame.css' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
+    </head>
+
+    <body onload="init()">
+          
+        
+        <div id = "optionMenu" onclick ="alert('work in progress')"></div>
+        <div id ="pagewrap">
+
+            <div id="bg">
+                <div id = "raidcontainer"></div>
+	            <div id = "targetFrame">
+		            <div id  ="UI_target"></div>
+		            
+		           
+	            </div>
+	            <div id = "deathCounterFrame">
+	                <p id = "_deathCount">0</p>
+	            </div>
+            </div>
+    
+            <div id = "chatte">
+	            <ul id ="chatcont">
+		            <li id = "m0"></li>
+		            <li id = "m1"></li>
+		            <li id = "m2"></li>
+		            <li id = "m3"></li>
+		            <li id = "m4"></li>
+		            <li id = "m5"></li>
+		            <li id = "m6"></li>
+	            </ul>
+	          
+ 				
+  				<input id="consoleInput" type="text"><br>
+  				
+            </div>
+
+
+        </div>
+        <div id ="spellbar_cont"> 
+            <ul id = "spellbar">
+                <li id = "testspell"> 
+                    <div id = "timer">
+                        <div id ="timer1">
+                            <div id = "sq1_arm">
+
+                            </div>
+
+
+                            <div id = "sq2_arm">
+                                <img id ="testen" src ="images/test.png" width="50px" height ="50px"></img>
+                                 <div id ="bgen"></div>
+                            </div>
+
+
+
+                            <div id = "sq3_arm">
+
+                            </div>
+
+
+                            <div id = "sq4_arm">
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                </ul>
+
+
+        </div>
+        <div id = "cl_input_window">
+
+            <textarea id = "cl_input" type ="text">11/18 05:27:37.903  SWING_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,1140,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:37.903  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:27:37.903  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
+11/18 05:27:38.359  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,6599,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:38.874  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,6421,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:40.396  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,7891,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:40.921  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,9394,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:41.082  SWING_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,1150,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:41.082  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:27:41.082  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,133630,"Exquisite Proficiency",0x40,BUFF
+11/18 05:27:41.082  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
+11/18 05:27:41.187  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171743,"Lunar Peak",0x40,BUFF
+11/18 05:27:42.379  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,7826,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:42.893  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,7371,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:43.247  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:27:43.247  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:27:44.181  SWING_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,1181,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:44.181  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:27:44.181  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
+11/18 05:27:44.181  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:27:44.181  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:27:44.181  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,14138,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:44.181  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,12604,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:44.457  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:27:44.949  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,8053,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:45.633  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:27:46.237  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171743,"Lunar Peak",0x40,BUFF
+11/18 05:27:46.431  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:27:46.431  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,7577,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:46.967  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,9320,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:47.651  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:27:47.651  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,7576,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:48.065  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:27:49.854  SWING_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,1226,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:49.854  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:27:49.854  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
+11/18 05:27:49.955  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,6377,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:50.482  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:27:51.163  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,6977,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:51.163  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171744,"Solar Peak",0x8,BUFF
+11/18 05:27:51.498  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:27:51.498  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,9683,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:51.724  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:27:51.954  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,9248,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:52.916  SWING_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,1130,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:52.916  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:27:52.916  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
+11/18 05:27:53.178  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,8227,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:53.700  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:27:53.700  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A6104,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,7577,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:53.935  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,8461,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:55.188  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,8289,6649,1,0,0,0,nil,nil,nil,nil
+11/18 05:27:55.188  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,133630,"Exquisite Proficiency",0x40,BUFF
+11/18 05:27:55.188  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171744,"Solar Peak",0x8,BUFF
+11/18 05:27:55.188  UNIT_DIED,0000000000000000,nil,0x80000000,0x80000000,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0
+11/18 05:29:28.424  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,58984,"Shadowmeld",0x1,BUFF
+11/18 05:29:30.292  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,164545,"Solar Empowerment",0x8,BUFF
+11/18 05:29:30.292  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,78674,"Starsurge",0x48,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:30.740  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171744,"Solar Peak",0x8,BUFF
+11/18 05:29:31.381  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:29:31.381  SPELL_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,78674,"Starsurge",0x48,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,15971,-1,72,0,0,0,nil,nil,nil,nil
+11/18 05:29:31.381  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
+11/18 05:29:35.377  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5995,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:35.759  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171744,"Solar Peak",0x8,BUFF
+11/18 05:29:36.120  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:29:37.096  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:37.096  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,10507,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:39.024  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,6722,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:39.024  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5711,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:39.726  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:29:40.726  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171743,"Lunar Peak",0x40,BUFF
+11/18 05:29:40.834  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,BUFF
+11/18 05:29:40.834  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,1792,0,0,nil,nil
+11/18 05:29:40.834  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:40.978  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:29:41.784  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:41.784  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5832,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:42.973  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:42.973  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5832,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:43.680  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,1792,0,0,nil,nil
+11/18 05:29:43.788  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5234,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:44.768  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,102351,"Cenarion Ward",0x8,BUFF
+11/18 05:29:44.768  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,102351,"Cenarion Ward",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:45.674  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171743,"Lunar Peak",0x40,BUFF
+11/18 05:29:46.237  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,108291,"Heart of the Wild",0x8,BUFF
+11/18 05:29:46.237  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,108291,"Heart of the Wild",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:46.525  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,2688,0,0,nil,nil
+11/18 05:29:47.038  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:29:47.477  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5827,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:47.477  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,102352,"Cenarion Ward",0x8,BUFF
+11/18 05:29:47.477  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,102351,"Cenarion Ward",0x8,BUFF
+11/18 05:29:48.043  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:48.043  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,8277,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:49.370  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,2688,0,0,nil,nil
+11/18 05:29:49.470  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,102352,"Cenarion Ward",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,13824,0,0,nil,nil
+11/18 05:29:49.470  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,4902,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:49.637  SPELL_AURA_REFRESH,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,164545,"Solar Empowerment",0x8,BUFF
+11/18 05:29:49.637  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,78674,"Starsurge",0x48,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:49.795  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:29:49.795  SPELL_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,78674,"Starsurge",0x48,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,16276,-1,72,0,0,0,nil,nil,nil,nil
+11/18 05:29:49.795  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
+11/18 05:29:50.565  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,6865,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:50.694  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:29:50.694  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171744,"Solar Peak",0x8,BUFF
+11/18 05:29:51.481  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,102352,"Cenarion Ward",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,13824,0,0,nil,nil
+11/18 05:29:52.227  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,2688,0,0,nil,nil
+11/18 05:29:52.584  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5745,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:52.746  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,573,0,0,nil,nil
+11/18 05:29:52.746  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,BUFF
+11/18 05:29:53.158  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:29:53.439  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,102352,"Cenarion Ward",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,13790,0,0,nil,nil
+11/18 05:29:53.439  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,102352,"Cenarion Ward",0x8,BUFF
+11/18 05:29:55.110  SWING_MISSED,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,MISS,nil,nil
+11/18 05:29:55.484  SWING_MISSED,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,MISS,nil,nil
+11/18 05:29:55.484  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:29:55.770  SPELL_AURA_REFRESH,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,164545,"Solar Empowerment",0x8,BUFF
+11/18 05:29:55.770  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,78674,"Starsurge",0x48,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:55.770  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171744,"Solar Peak",0x8,BUFF
+11/18 05:29:55.975  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:29:55.975  SPELL_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,78674,"Starsurge",0x48,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,16283,-1,72,0,0,0,nil,nil,nil,nil
+11/18 05:29:55.975  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,3
+11/18 05:29:56.567  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:56.567  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,8286,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:56.766  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:29:58.002  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:29:58.677  SPELL_CAST_FAILED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,78674,"Starsurge",0x48,"Not yet recovered"
+11/18 05:29:58.788  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:29:58.788  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5832,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:29:58.960  SPELL_CAST_FAILED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,78674,"Starsurge",0x48,"Not yet recovered"
+11/18 05:30:00.049  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:00.049  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5832,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:00.249  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,164547,"Lunar Empowerment",0x40,BUFF
+11/18 05:30:00.249  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,78674,"Starsurge",0x48,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:00.609  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:30:00.609  SPELL_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,78674,"Starsurge",0x48,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,32045,-1,72,0,0,0,1,nil,nil,nil
+11/18 05:30:00.609  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,139133,"Mastermind",0x40,BUFF
+11/18 05:30:00.727  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171743,"Lunar Peak",0x40,BUFF
+11/18 05:30:03.184  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,BUFF
+11/18 05:30:03.184  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,3160,0,0,nil,nil
+11/18 05:30:03.184  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:03.550  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,6451,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:03.550  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,157228,"Empowered Moonkin",0x1,BUFF
+11/18 05:30:04.063  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158024,"Thwack",0x1
+11/18 05:30:05.008  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,2912,"Starfire",0x40,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:05.008  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,157228,"Empowered Moonkin",0x1,BUFF
+11/18 05:30:05.008  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,1
+11/18 05:30:05.008  SPELL_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,2912,"Starfire",0x40,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,20289,-1,64,0,0,0,nil,nil,nil,nil
+11/18 05:30:05.008  SPELL_AURA_APPLIED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,2
+11/18 05:30:05.008  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:05.008  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158024,"Thwack",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,9285,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:05.531  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5253,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:05.531  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,157228,"Empowered Moonkin",0x1,BUFF
+11/18 05:30:05.730  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171743,"Lunar Peak",0x40,BUFF
+11/18 05:30:06.109  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,3161,0,0,nil,nil
+11/18 05:30:06.325  SPELL_CAST_FAILED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,2912,"Starfire",0x40,"Another action is in progress"
+11/18 05:30:06.433  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,2912,"Starfire",0x40,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:06.433  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,157228,"Empowered Moonkin",0x1,BUFF
+11/18 05:30:06.433  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,164547,"Lunar Empowerment",0x40,BUFF
+11/18 05:30:06.433  SPELL_AURA_REMOVED_DOSE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF,1
+11/18 05:30:06.433  SPELL_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,2912,"Starfire",0x40,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,18365,-1,64,0,0,0,nil,nil,nil,nil
+11/18 05:30:06.541  SPELL_CAST_FAILED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,2912,"Starfire",0x40,"Not yet recovered"
+11/18 05:30:07.086  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5010,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:07.525  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5311,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:07.815  SPELL_CAST_FAILED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,2912,"Starfire",0x40,"Another action is in progress"
+11/18 05:30:07.816  SPELL_CAST_START,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,2912,"Starfire",0x40
+11/18 05:30:08.902  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,3160,0,0,nil,nil
+11/18 05:30:09.091  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,7217,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:09.561  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5055,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:10.060  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:30:10.605  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,139133,"Mastermind",0x40,BUFF
+11/18 05:30:10.744  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171744,"Solar Peak",0x8,BUFF
+11/18 05:30:10.944  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,2912,"Starfire",0x40,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:10.944  SPELL_AURA_REMOVED,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,158056,"Gift of the Talbuk",0x1,BUFF
+11/18 05:30:10.944  PARTY_KILL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0
+11/18 05:30:10.944  SPELL_DAMAGE,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,2912,"Starfire",0x40,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,8290,309,64,0,0,0,nil,nil,nil,nil
+11/18 05:30:11.072  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,6614,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:11.334  SPELL_CAST_START,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1
+11/18 05:30:11.334  UNIT_DIED,0000000000000000,nil,0x80000000,0x80000000,Creature-0-1596-1116-125-86727-00006A614C,"Thorncoat Talbuk",0x10a48,0x0,0
+11/18 05:30:11.744  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,2688,0,0,nil,nil
+11/18 05:30:12.270  SPELL_AURA_REFRESH,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,BUFF
+11/18 05:30:12.270  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,2688,0,0,nil,nil
+11/18 05:30:12.270  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:13.299  SPELL_CAST_SUCCESS,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,0000000000000000,nil,0x80000000,0x80000000,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:13.299  SPELL_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,158014,"Rearing Charge",0x1,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,5832,-1,1,0,0,0,nil,nil,nil,nil
+11/18 05:30:13.774  SPELL_CAST_SUCCESS,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,61391,"Typhoon",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0
+11/18 05:30:13.774  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,61391,"Typhoon",0x8,DEBUFF
+11/18 05:30:14.606  SPELL_CAST_FAILED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,5185,"Healing Touch",0x8,"Not yet recovered"
+11/18 05:30:14.634  SPELL_PERIODIC_HEAL,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,2688,0,0,nil,nil
+11/18 05:30:15.147  SPELL_CAST_FAILED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,5185,"Healing Touch",0x8,"Another action is in progress"
+11/18 05:30:15.147  SPELL_CAST_START,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,5185,"Healing Touch",0x8
+11/18 05:30:15.726  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,171744,"Solar Peak",0x8,BUFF
+11/18 05:30:16.351  SWING_DAMAGE,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0x10a48,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,0,0,0,0,0,0,0,0,0.00,0.00,0,12575,739,1,0,0,0,1,nil,nil,nil
+11/18 05:30:16.351  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,24858,"Moonkin Form",0x1,BUFF
+11/18 05:30:16.351  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,24907,"Moonkin Aura",0x8,BUFF
+11/18 05:30:16.351  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,108291,"Heart of the Wild",0x8,BUFF
+11/18 05:30:16.351  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,164545,"Solar Empowerment",0x8,BUFF
+11/18 05:30:16.351  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,774,"Rejuvenation",0x8,BUFF
+11/18 05:30:16.351  SPELL_CAST_FAILED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0000000000000000,nil,0x80000000,0x80000000,5185,"Healing Touch",0x8,"Interrupted"
+11/18 05:30:16.351  UNIT_DIED,0000000000000000,nil,0x80000000,0x80000000,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,0
+11/18 05:30:17.381  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Creature-0-1596-1116-125-86727-00006A615D,"Thorncoat Talbuk",0xa48,0x0,61391,"Typhoon",0x8,DEBUFF
+11/18 05:30:33.157  SPELL_AURA_APPLIED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,154796,"Touch of Elune - Day",0x1,BUFF
+11/18 05:30:33.157  SPELL_AURA_REMOVED,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,Player-1596-07F94B14,"Blome-TheMaelstrom",0x511,0x0,154797,"Touch of Elune - Night",0x1,BUFF
+</textarea>
+        
+        </div>
+        <div id = "dbg_chat">
+                <ul id ="dbg_chat_cont">
+                    <li id = "y0"></li>
+                    <li id = "y1"></li>
+                    <li id = "y2"></li>
+                    <li id = "y3"></li>
+                    <li id = "y4"></li>
+                    <li id = "y5"></li>
+                    <li id = "y6"></li>
+                    <li id = "y7"></li>
+                    <li id = "y8"></li>
+                    <li id = "y9"></li>
+                </ul>
+              
+                
+               
+                
+        </div>
+        <div id ="options"></div>
+
+    </body>
+</html>

@@ -1,0 +1,530 @@
+html{
+	overflow: hidden;
+	
+   
+}
+
+body{
+	height: 100%;
+	overflow:hidden;
+    background-image: url(images/hg_bg.png);
+	background-repeat: no-repeat;
+	-moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none; 
+    color: #70DBDB;
+    cursor: url(images/wowcur.png),auto;
+}
+
+div#bg1{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: -1;
+	padding: 0;
+	margin: 0;
+	top: 0;
+	left: 0;
+	color: #70DBDB;
+}
+/*
+div#optionMenu{
+	position: absolute;
+	
+	
+	background-image: url(images/menuConcept.png);
+	background-repeat: no-repeat;
+	right: 1;
+	z-index: 1;
+	height: 900;
+	width: 250;
+	border-color: black;
+	border-style: solid;
+	border: 4px;
+}
+*/
+li#testspell{
+	width: 100px;
+	height: 100px;
+}
+
+li div#timer{
+	background-image: url(http://wow.zamimg.com/images/wow/icons/large/spell_holy_flashheal.jpg);
+	width: 100%;
+	height: 100%;
+
+}
+div#sq1_arm{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background-color: black;
+	opacity: 0.76;
+}
+
+div#bgen{
+	background-color: black;
+	opacity: 0.75;
+	position: relative;
+}
+img#testen {
+-webkit-transform-origin: bottom left;
+position: absolute;
+overflow: hidden;
+border-right-color: black;
+border-width: 50px;
+border-style: solid;
+border-top: 0;
+border-bottom: 0;
+border-left: 0;
+}
+
+img#cvr1{
+	position: absolute;
+
+}
+div#sq2_arm {
+width: 50px;
+height: 50px;
+margin-top: 0px;
+overflow: hidden;
+margin-left: 50px;
+position: absolute;
+}
+
+div#sq3_arm{
+	width: 50px;
+	height: 50px;
+	margin-top:50px;
+	background-color: black;
+	opacity: 0.76;
+	position: absolute;
+
+}
+
+div#sq4_arm{
+	width: 50px;
+	height: 50px;
+	margin-top: 50px;
+	background-color: black;
+	opacity: 0.76;
+	margin-left:50px;
+	position: absolute;
+}
+div#timer1{
+	height: 100px!important;
+	width: 100px!important;
+	position: absolute!important;
+	background: url(http://wow.zamimg.com/images/wow/icons/large/spell_holy_flashheal.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	
+}
+div#spellbar_cont {
+	top: 500px;
+	position: absolute;
+}
+ul#spellbar{
+	height: 150px;
+}
+div#bg2{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	padding: 0;
+	margin: 0;
+	top: 0;
+	left: 0;
+
+	
+}
+
+input#consoleInput {
+background: transparent;
+width: 100%;
+height: 50px;
+color: white;
+font: helvetica;
+/* font-family: Helvetica; */
+font-size: 11;
+padding: 15;
+border-style: solid;
+border-color: gray;
+font-weight: bold;
+font-family: Helvetica;
+}
+
+div#auraContainer
+{
+	height: 20px;
+	width: 50px;
+	float: left;
+	position: absolute;
+	padding: 2px;
+	top:0px;
+}
+
+div#castBarContainer
+{
+	position: absolute;
+	width: 250px;
+	top: 350px;
+	margin: 0 auto;
+	height: 30px;
+	border-color: #0e6129;
+	border-size: 2px;
+	background-color: #05210e;
+	border-style: solid;
+}
+
+
+
+p#timertext
+{
+	display: inline-block;
+	position: absolute;
+	top: 0px;
+	padding: 0;
+	height: 14px;
+	margin:5px;
+	font-family: arial;
+	font size: 13px;
+	font-weight: bolder;
+}
+
+div#castBar
+{
+	width: 0%;
+	height: 30px;
+	margin: 0px;
+	background-color: #1ab34c;
+	position: relative;
+}
+
+div#pagewrap
+{
+	width: 100%;
+}
+
+
+
+
+
+div#bosstimers
+{
+	width: 300px;
+	height: 300px;
+	top: 100px;
+	float: right;   
+    padding: 40px;
+	position: relative;
+}
+
+div#bgtimer1
+{
+	width: 100%;
+	height: 30px;
+	background-color: #1e1e1e;
+	border: 2px;
+	border-style: solid;
+	border-color: black;
+	position: relative;
+}
+
+div#timer1
+{
+	width: 100%;
+	height: 30px;
+	background-color: #1528e4;
+	position: relative;
+}
+
+div#deathCounterFrame
+{
+	width: 100px;
+	height: 25px;	
+	top:100px;
+	position: relative;
+}
+
+p#_deathCount
+{
+	color: orange;	
+	font-family: arial;
+	font-size: 15px;
+	font-weight: bolder;
+	padding: 5px;
+}
+
+ul#chatcont#p
+{
+	color: yellow;
+}
+
+ul#datacont{
+	color:white;
+}
+
+ul#chatcont
+{
+	background-image: url(bg_opacity.png);
+	background-reapeat: repeat;
+	padding: 15px;
+	opacity: 0.90;
+	font-family: helvetica;
+	font-weight: bolder;
+	top: 0px;
+	left:0px;
+	color: white;
+	width: 480px;
+	position: relative;
+	height: 200px;
+	list-style: none;
+	font-size: 12px;
+	margin-left: 0px;
+}
+
+ul#dbg_chat_cont
+{
+	background-image: url(bg_opacity.png);
+	background-reapeat: repeat;
+	padding: 15px;
+	opacity: 0.90;
+	font-family: helvetica;
+	font-weight: lighter;
+	top: 0px;
+	left:0px;
+	color: #1ff66b;
+	width: 850px;
+	position: relative;
+	height: 200px;
+	list-style: none;
+	font-size: 10px;
+	margin-left: 0px;
+}
+
+
+div#achivement
+{
+	height: 100;
+	width:400;
+	top:300;
+	position: absolute;
+	background-image: url(hello.png);
+	background-repeat: no-repeat;
+	opacity: 0;
+}
+
+p#ach
+{
+	padding: 0;
+	margin: 0;
+	color: yellow;
+ 	display: inline-block;
+}
+
+p#epic
+{
+	padding: 0;
+	margin: 0;
+	color: #a335ee!important;
+	display: inline-block;
+}
+
+p#system
+{
+	padding: 0;
+	margin: 0;
+	color: #eb442e;
+	display: inline-block;
+}
+
+p#error
+{
+	padding: 0;
+	margin: 0;
+	color: red;
+	display: inline-block;
+}
+
+p#chat
+{
+	color: #44db64;
+	font-family: helvetica;
+	font-weight: bolder;
+	top: 170px;
+	left:0px;
+	width: 250px;
+	position: relative;
+	height: 300px;
+}
+
+p#information
+{
+	font-family: helvetica;
+	font-size: 10pt;
+	color: white;
+	top: 100px;
+	left:20px;
+	position: relative;
+}
+
+div#cl_input_window{
+	position: absolute;
+	width: 500px;
+	height: 200px;
+	top:500px;
+}
+
+div#targetFrame
+{
+ 	top:0;
+ 	padding: 15px;
+}
+
+div#chatte
+{
+	font-family: helvetica;
+	top: 100px;
+	left:0px;
+	position: absolute;
+	padding: 40px;
+	width: 500px;
+}
+
+div#dbg_chat
+{
+	font-family: helvetica;
+	top: 700px;
+	left:0px;
+	position: absolute;
+	padding: 40px;
+	width: 500px;
+}
+
+
+
+h1#achive_name
+{
+	top: 30px;
+	left:100px;
+	height: 20px;
+	width:100px;
+	font-size: 10px;
+	position: relative;
+	float:left;
+	font-family: helvetica;
+	color: white;
+}
+
+div#settings
+{
+	width: 450px;
+	height: 600px;
+	background-image: url(sett.png);
+	background-repeat: no-repeat;
+	position: absolute;
+	top:120px;
+	float: left;
+}
+
+div#setform
+{
+	top: 170px;
+	left: 50px;
+	position: relative;
+}
+
+p#targetName
+{
+	position: relative;
+	top: 0;
+}
+
+div#bg
+{
+	top:145px;
+	width: 460px;
+	height: 250px;
+	padding: 40px;
+	margin: auto;
+	position: relative;
+	
+	
+	background-repeat: repeat;
+}
+
+div#raidcontainer
+{
+	opacity: 1;
+	height: 170px;
+	padding: 20px;
+}
+
+.raidmember
+{	
+	height: 100%;
+	width: 100%;	
+	position: relative;
+	overflow: hidden;
+	opacity: 1;
+	background-image: url(images/rfOverlay.png);
+}
+
+.playerName
+{
+	color: white;
+	font-family: 'Rationale';	
+	font-weight: bolder;
+	font-size: 13px;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	position: absolute;
+	top: 0px;	
+  	text-shadow: 2px 2px 2px black;	
+}
+
+.auras
+{
+	height: 20px;
+	width: 20px;
+	float:left;
+	position: relative;
+	padding: 0px;
+	margin: 0px;
+}
+
+/*
+#options{
+
+	height: 50px;
+	width: 50px;
+	left: 50px;
+	position: absolute;
+	z-index: -1;
+	background-image: url(optionsIcon.png);
+}
+*/
+.raidmemberBorder
+{
+	background-image: url(images/rfOverlay.png);
+	float:left;
+	height: 35px;
+	width: 100px;
+	margin: 2px;
+	border: 2px;
+	border-style: solid;
+	position: relative;
+	border-color: black;
+	background-color: #1a1b1c;
+}
