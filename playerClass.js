@@ -2,27 +2,36 @@ function Player() {
 
     this.name = generateName();
     this.classID = Math.floor(Math.random() * 11); 
-    this.spells = null;
+    this.spells = null; // example for how it could work: get_class_data(classid, spells); returning an object.
     this.level = 100;
 
-    this.stats = { 
-        spellpower: 20000,
+    this.stats = {  // Stats from gear
+        
+        int: 20000,
         stamina: 29913,
         haste: 12.38,
+        mastery: 0,
         mana: 300000,
         crit: 29.44,
         dodge: 5,
+        spirit: 0,
         armorPercent: 30,
-        maxHealth: 110454,
+        maxHealth: 110454
     };
     
-    this.activeStats = function (){
+    this.a_stats = {  // Calculated stats for spells
+        
+        mastery: null,//this.class.mastery(),
+        spellpower: null,
+        health: null,
+        resistance: {},
+        hastePercent: null,
+        critPercent: null  // critRating -> CritPercent
         // get scaling data from getScaleData("datatype", level , class);
-        //calculated stats , including auras etc.
-    }
+        
+    };
     
     this.auras = [];
-
     this.cooldowns = []; // Manages spell cooldowns;
     this.currentHealth = this.stats.maxHealth;
 
@@ -96,6 +105,12 @@ function Player() {
     }
 
     */
+
+
+Player.prototype.modStat = function(statName, value){ // function to modify stats
+       // example: target.modStat("int",20 ) 
+};
+
 Player.prototype.hasAura = function(auraIDorName){
                 // returns true of false based on the player having the aura.
 };
@@ -121,7 +136,7 @@ Player.prototype.changeHealth = function (amount, type, source, casterName, effe
             amount_cpy = amount,
             caster = casterName || "Environment";
 
-        /// ARMOR & AVOIDANCE
+        /// RESISTANCE & AVOIDANCE
         if (type === "physical") { // If damage type is Physical , armor will reduce the damage
             amount_cpy = amount_cpy * (1 - (this.stats.armorPercent / 100));
 
