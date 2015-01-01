@@ -7,7 +7,9 @@
    clSimTest(parseCL());
 
 */
-
+function testCombatLogSim(){
+    clSimTest(parseCL());
+}
 function schoolNameFromId(schoolId) {
     switch (schoolId) {
         case 0x0:  return 'Physical'; // ?
@@ -66,6 +68,9 @@ function clSimTest(parsed_combat_log) {
         cl_events = parsed_combat_log,
 	    timer = setInterval(tick,100),
         CL_END = cl_events[instructPtr].length;
+    
+    raid[0].name = 'Blome';
+    raid[0].class = 1;
     
 	function tick() {
 

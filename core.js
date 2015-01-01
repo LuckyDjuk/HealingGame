@@ -9,65 +9,47 @@ var classColors = ["#8c162a", "#8c4406", "#678045", "#386c80", "#008c52",
     "#8c506a", "#8c8c8c", "#8c873a", "#00468c", "#675b8c", "#8c6e4d"
     ];
 
-var gamethread = [];
 var mainChat = new Chat("mainchat");
 var dbg_chat = new Chat("dbg");
 
-function clearAllIntervals(){
-         for (c = 0; c < gamethread.length; c++){
-             clearInterval(gamethread[c]);
-         }
-}
-
 function init() {
     // --- reset stuff ---
-    
-    clearAllIntervals();
-    gamethread = [];
     raidgrp = [];
     document.getElementById('raidcontainer').innerHTML = '';
-    raid = []; 
+    raid = [];
     makeRaid(raidsize);
     // -------------------
-
-    // Ignore this , im just experimenting. 
+    makeRaid(raidsize);
+    buildRaidFrames();
     
-    raid[0].name = "Blome";
-    raid[0].classID = 1; // Druid
+    var optionMenu = new dat.GUI;
+    optionMenu.add(window, 'testCombatLogSim');
+    optionMenu.add(window, 'smartAoeHeal');
+    optionMenu.add(window, 'aoeDamage');
     
-    addInputListener();
-    buildUnitFrames();   
-    //main thread, drawing only
-    gamethread.push(setInterval(updateScreen, 250));       
+    var screenUpdate = setInterval(updateScreen, 250);       
 }
 
-function raidaoe(){
+function aoeDamage(){
     for(var x = 0; x < raid.length; x++){
-        raid[x].changeHealth(-50000, "physical", "bah", "Garrosh Hellscream", "damage");
+        raid[x].changeHealth(-Math.abs(Math.random()*15000+15000), "physical", "bah", "Garrosh Hellscream", "damage");
     }
 }
 
-function raidaoeheal(){
-    var mostInjured = getMostInjured(5);
+function smartAoeHeal(){
+    var mostInjured = getMostInjured(7);
     for(var x = 0; x < mostInjured.length; x++){
-        mostInjured[x].changeHealth(225000);
-    }
-}
-
-function raidaoehots(){
-    var mostInjured = getMostInjured(5);
-    for(var x = 0; x < mostInjured.length; x++){
-        mostInjured[x].changeHealth(65000);
+        mostInjured[x].changeHealth(20000);
     }
 }
 
 function updateScreen() { // updates the UI   
-    drawUnitFrames();
+    updateRaidFrames();
     drawChat2();
     drawChat(); 
 }
 
-function drawUnitFrames(){
+function updateRaidFrames(){
     var playerID,
         player,
         health,
@@ -87,7 +69,7 @@ function drawUnitFrames(){
     }
 }
 
-function buildUnitFrames() {
+function buildRaidFrames() {
     var i,
         border,
         name,
