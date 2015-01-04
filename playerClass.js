@@ -1,8 +1,9 @@
+
 function Player() {
 
+    this.id = null;
     this.name = generateName();
     this.classID = Math.floor(Math.random() * 11); 
-    this.spells = null; // example for how it could work: get_class_data(classid, spells); returning an object.
     this.level = 100;
 
     this.stats = {  // Stats from gear
@@ -18,132 +19,110 @@ function Player() {
         armorPercent: 30,
         maxHealth: 110454
     };
-    
+
     this.a_stats = {  // Calculated stats for spells
         
         mastery: null,//this.class.mastery(),
         spellpower: null,
         health: null,
-        resistance: {},
+        physical_resist: 0, // basicly armor
+        all_resist: 0,
+        magic_resist: 0,     
+        amlifications: null, // For example healing taken reduced by %
         hastePercent: null,
-        critPercent: null  // critRating -> CritPercent
-        // get scaling data from getScaleData("datatype", level , class);
+        critPercent: null
         
+        // get scaling data from getScaleData("datatype", level , class)    
     };
     
+    this.spells = [   { id:0, name:"Testspell", casttime: 1500, powercost:2400, powertype:"mana", effects: [], cooldown: 8000, gcd: 1500 }   ];
+
+    
     this.auras = [];
-    this.cooldowns = []; // Manages spell cooldowns;
     this.currentHealth = this.stats.maxHealth;
 
-    this.currentTarget = "noTarget";
+    this.currentTarget = "noTarget"; //id of target enitiy
     this.hasTarget = true;
-    this.timeAlive;
 
     this.isAlive = true;
     this.absorbs = 0;
-    
     this.isCasting = false;
     this.castProgress = 0;
     this.gdc = 0;
 }
-/*
-    this.cast = function(spid){
-        if (this.isCasting) { // Check if in gcd or already casting
-            return console.log("Can't Use That Yet. (GCD) -"+this.names);
-        }
 
-        if (this.hasCooldown(spid)){
-            return console.log("Spell not ready yet");
-        }
-
-        if (this.hasTarget === false){
-            if (options.autoSelfCast === true){
-                // set target to self
-
-            }
-
-            else return console.log("Invalid target or no target");
-        }
-        
-
-        var castTime; // CALCULATE CASTTIME
-
-        if (SPELL.castTime != 0){ /// IF SPELL HAS A CAST TIME
-            castTime = SPELL.castTime * (1 - (this.stats.haste/100));
-            this.isCasting == true;
-            console.log("i am here");
-            new countDown(castTime);
-        }
-        else 
-            castTime = 0;
-            this.gcd = 1500;
-
-
-        switch (SPELL.effect[0]){
-                case "HEAL": 
-                var heal = (this.stats.spellpower * SPELL.effect[2]) + SPELL.effect[3];
-                console.log("heal amount"+ heal);
-                break;
-
-                case "AURA":
-
-
-                case "I"
-        }
-
-      
-
-
-                     // SEND OUTPUT AT FINISHED CAST
-                     // REMOVE POWER FROM PLAYER
-        this.stats.mana -= SPELL.powerCost;
-
-        console.log("Actual cast time: " + castTime);
-        console.log("Player mana: " + this.stats.mana);
-        
-
+Player.prototype.useAbility = function(spellObject){
+    var spell = spellObject,
+        player = this;
+    
+    if (player.isCasting) {
+        console.log("Can't Use That Yet.");
+        return;
     }
 
-    */
+    if (player.onGlobal && spell.hasGlobal) {
+        console.log("Can't Use That Yet.");
+        return;
+    }
 
+    if (spell.onCooldown) {
+        console.log("Spell not ready yet");
+        return;
+    }
+
+    if (player.hasTarget === false) {
+        if (player.options.autoSelfCast === true) {
+            // set target to self
+        }
+        else {
+            console.log("Invalid or no target");
+            return;
+        }
+    }
+
+    // Calculate cast time
+    
+    // Start cast
+    
+    // Execute spell effects on finished cast. maybe this spell.onComplete?
+    
+    // Remove power, - 100 mana etc
+    
+    // done?
+}
 
 Player.prototype.modStat = function(statName, value){ // function to modify stats
-       // example: target.modStat("int",20 ) 
+       // example: target.modStat("int",20)
 };
 
 Player.prototype.hasAura = function(auraIDorName){
                 // returns true of false based on the player having the aura.
 };
 
+Player.prototype.hasResist = function(resistType){ // physical, shadow, frost etc.
+}
+
 Player.prototype.getHealthPercent = function () {
         return (this.currentHealth / this.stats.maxHealth) * 100;
 };
 
-/*
-Player.protoype.hasCooldown = function(spid){
-                for(spell in cooldowns){
-                    if spell === spid {
-                        return true;
-                    }
-                }
-                return false;
-}
-*/
-
 Player.prototype.changeHealth = function (amount, type, source, casterName, effect) {
-        if(!this.isAlive){return}
+        if (!this.isAlive) {
+            return;
+        }
         var raw_amount_cpy = amount, // Keep a copy of the original value
             amount_cpy = amount,
             caster = casterName || "Environment";
 
         /// RESISTANCE & AVOIDANCE
+        
         if (type === "physical") { // If damage type is Physical , armor will reduce the damage
             amount_cpy = amount_cpy * (1 - (this.stats.armorPercent / 100));
 
             if (source === "melee") { // If source is melee then avoidance will be possible.
                 var roll = Math.floor(Math.random() * 100);
                 if (roll <= this.stats.dodge) {
-                    mainChat.addLine("<p id = 'system'>" + caster + "</p>  hits " + this.name + "<p                                     id='error'> ,dodged</p>");
+                    mainChat.addLine("<p id = 'system'>" + caster + "</p>  hits " + this.name + "<p id='error'> ,dodged</p>");
                     return;
                 }
             }

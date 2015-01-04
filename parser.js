@@ -24,7 +24,7 @@ function schoolNameFromId(schoolId) {
         case 0xA:  return 'Holystorm';
         case 0xC:  return 'Firestorm';
         case 0xC:  return 'Firestorm';
-        case 0x11: return 'Froststrike';    
+        case 0x11: return 'Froststrike';
     }   
 }
 
@@ -103,9 +103,7 @@ function clSimTest(parsed_combat_log) {
 	}
 }
 
-function HHMMSStoMS(HHMMSS) {  // Converts 00:00:00 
+function HHMMSStoMS(HHMMSS) {  // Converts 'HH:MM:SS' timeformat to millisecs 
     var arr = HHMMSS.split(':');
-
-    console.log(arr);
     return arr[0]*60000*60000 + arr[1]*60000 + arr[2]*1000;
 }
