@@ -29,13 +29,13 @@ function Player() {
         all_resist: 0,
         magic_resist: 0,     
         amlifications: null, // For example healing taken reduced by %
-        hastePercent: null,
-        critPercent: null
+        haste: 0.20,
+        crit: null
         
         // get scaling data from getScaleData("datatype", level , class)    
     };
     
-    this.spells = [   { id:0, name:"Testspell", casttime: 1500, powercost:2400, powertype:"mana", effects: [], cooldown: 8000, gcd: 1500 }   ];
+    this.spells = [   { id:0, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500 }   ];
 
     
     this.auras = [];
@@ -54,6 +54,7 @@ function Player() {
 Player.prototype.useAbility = function(spellObject){
     var spell = spellObject,
         player = this;
+        castTime = 0;
     
     if (player.isCasting) {
         console.log("Can't Use That Yet.");
@@ -69,6 +70,10 @@ Player.prototype.useAbility = function(spellObject){
         console.log("Spell not ready yet");
         return;
     }
+    
+    if (player.stats.mana < spell.manacost){
+        console.log("Not enough mana to use spell");
+    }
 
     if (player.hasTarget === false) {
         if (player.options.autoSelfCast === true) {
@@ -78,17 +83,21 @@ Player.prototype.useAbility = function(spellObject){
             console.log("Invalid or no target");
             return;
         }
+    }  
+    castTime = spell.casttime * (1 - player.a_stats.haste);
+    dbg_chat.addLine("Casting: " + spell.name + "  -  Execute time: " + castTime);
+    player.isCasting == true;
+    var countdown = setTimeout(castFinished,castTime);
+    
+    function castFinished(){
+        
+            player.isCasting == false;
+            //spell.use();
+            player.stats.mana -= spell.manacost;
+            
+            dbg_chat.addLine("Finished casting: " + spell.name);
+        
     }
-
-    // Calculate cast time
-    
-    // Start cast
-    
-    // Execute spell effects on finished cast. maybe this spell.onComplete?
-    
-    // Remove power, - 100 mana etc
-    
-    // done?
 }
 
 Player.prototype.modStat = function(statName, value){ // function to modify stats

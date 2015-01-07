@@ -7,6 +7,7 @@
    clSimTest(parseCL());
 
 */
+
 function testCombatLogSim(){
     clSimTest(parseCL());
 }
@@ -68,10 +69,7 @@ function clSimTest(parsed_combat_log) {
         cl_events = parsed_combat_log,
 	    timer = setInterval(tick,100),
         CL_END = cl_events[instructPtr].length;
-    
-    raid[0].name = 'Blome';
-    raid[0].class = 1;
-    
+
 	function tick() {
 
 		while(timeMS >= cl_events[instructPtr].timestamp){
