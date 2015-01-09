@@ -168,4 +168,56 @@ Player.prototype.changeHealth = function (amount, type, source, casterName, effe
             mainChat.addLine(caster + " did<p id ='system'>" + Math.abs(amount_cpy.toFixed(0)) + "  ( " +
             Math.abs(raw_amount_cpy.toFixed(0) - amount_cpy.toFixed(0)) + " absorbed by Armor)</p> damage to : <p id = 'error'>" + this.name + "</p>");
         }
-    };
+};
+
+/*
+    Ideen bak apply() e at alt som kan skje med en player går igjennom dinna funksjonen, som da sende det videre til "subroutines".
+    Komme til å replace changeHealth funksjonen med ditta, etterkvert som motivasjonen kjeme ;D.
+    
+    Eksempel:
+    
+    Eg sende ett objekt til dinna funksjonen som ser sånn ut:
+    
+    ACTIONOBJECT
+    {
+        action: "damage",
+        school: "physical,
+        source: "melee",
+        value:  62000        
+    }
+    
+    
+
+*/
+Player.prototype.apply = function(actionObject) {
+    switch(actionObject.action){
+        case "damage":
+            handleDamage();
+            break;
+       // case: "healing"
+       // case: "aura"
+    }
+            
+    function handleDamage(){ // same as Player.prototype.changeHealth() , just much more readable. 
+            var value = actionObject.value;
+
+            if(actionObject.source === 'melee'){
+                // avoidance will happen here : parry - dodge - block??
+            }
+            
+            if(this.getResist(actionObject.school)){ // if player has any resistance to the thing happening to them. Armor goes under resitance aswell
+                value *= this.getResist(apply.Object.school);
+            }
+            
+            if(this.getResist("all")){
+                value *= this.getResist("all");
+            }
+            
+            if(this.a_stats.absorbs){
+                value -= absorbs; 
+            }
+            
+            this.modStat("health", -Math.abs(value));
+    }
+
+}

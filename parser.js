@@ -30,7 +30,7 @@ function schoolNameFromId(schoolId) {
 }
 
 function parseCL(rawcombatlog) {  // Takes a raw WoW combat log and parses it, returning an array of event-objects.
-    var combatlog = document.getElementById('cl_input').value.split('\n'),
+    var combatlog = rawcombatlog || document.getElementById('cl_input').value.split('\n'),
         logStartTime = HHMMSStoMS(combatlog[0].slice(6, 17)), 
         currentLine,
         parsedCL = [],

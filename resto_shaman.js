@@ -20,7 +20,10 @@ function resto_shaman_mastery() {
     return ((1 - (raid[this._target].getHealthPercent() / 100)) * this.mastery) + 1;
 }
 
-function resto_shaman_healing_surge(caster, target) { // Resto Shaman Healing Spell 1
+/* resto_shaman_healing_surge
+   # Calculates how much healing surge should heal for and returns the amount.
+*/
+function resto_shaman_healing_surge(caster, target) {
     var amount = 0;
     var spell_scaling = getScaleData('SPELL_SCALING','shaman',this.level); 
     // needs to be updated for WoD ( spell scaling is gone in wod, only spellpower matters )
@@ -30,11 +33,11 @@ function resto_shaman_healing_surge(caster, target) { // Resto Shaman Healing Sp
         max = (average * spell_scaling) * (1 - delta / 2),
         min = (average * spell_scaling) * (1 + delta / 2);
     
-    if(!target.isAlive){ 
+    if(!target.isAlive){
         return console.log("Target is dead. resto_shaman_healing_surge"); 
-    }  
+    }
     
-    amount = rngFromTo(min, max) + (coefficiant * caster.spellpower);
+    amount = HG_TOOLS.rngFromTo(min, max) + (coefficiant * caster.spellpower);
     amount *= 1.20; // all resto shamans have passive 20% more healing
 
     if(target.hasAura('riptide') ){ // healing surge heals for 25% more if Riptide is on the target.
@@ -42,7 +45,6 @@ function resto_shaman_healing_surge(caster, target) { // Resto Shaman Healing Sp
     }
     // You get a passive 25% increase in all healing when specced as resto shaman;
     amount *= 1.25;
-
     // Get Mastery Gain(Deep Healing) Resto shamans heal more if the target has lower hp.
     amount *= caster.calcMastery();
 
@@ -50,22 +52,9 @@ function resto_shaman_healing_surge(caster, target) { // Resto Shaman Healing Sp
         if(isItACrit(caster.stats.crit + 20)){
         amount = amount * 2; // crit doubles the heal amount
         }
-    } else if(isItACrit(caster.stats.crit)){
+    } 
+    else if(HG_TOOLS.isItCrit(caster.stats.crit)){
         amount = amount * 2;
     }
     return amount;
-}
-
-function isItACrit(chanceToCrit) {
-    var rand_num = rngFromTo(0, 100); //random number from 0 - 100
-
-    if (rand_num <= chanceToCrit) 
-        return true; // if the number is less than or equal to crit chance , then its a crit.
-    else 
-        return false;
-}
-
-function rngFromTo(min, max) { // returns a random number between min & max
-    var result = Math.random() * (max - min) + min;
-    return result;
 }
