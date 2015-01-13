@@ -11,6 +11,7 @@ var classColors = ["#8c162a", "#8c4406", "#678045", "#386c80", "#008c52",
 
 var mainChat = new Chat("mainchat");
 var dbg_chat = new Chat("dbg");
+var humanPlayer;
 
 function init() {
     // --- reset stuff ---
@@ -18,14 +19,18 @@ function init() {
     document.getElementById('raidcontainer').innerHTML = '';
     raid = [];
     makeRaid(raidsize);
+    humanPlayer = raid[0];
     // -------------------
     makeRaid(raidsize);
     buildRaidFrames();
+    buildPlayerFrame();
+    buildSpellBar();
     
     var optionMenu = new dat.GUI;
     optionMenu.add(window, 'testCombatLogSim');
     optionMenu.add(window, 'smartAoeHeal');
     optionMenu.add(window, 'aoeDamage');
+    optionMenu.add(window, 'buildSpellBar');
     
     var screenUpdate = setInterval(updateScreen, 250);       
 }
@@ -66,9 +71,63 @@ function updateRaidFrames(){
        $(healthFrameID).animate({
        width: healthPercent
        }, 200);
+        
+        
+        if(playerID == 0){
+            $('#player_health').animate({
+                width: healthPercent
+                }, 200);
+        }
     }
 }
+/* Det e stygt men det funka :p , alt ditta blir vel replaca med ett 2d bibliotek etterkvert uansett */
 
+
+function buildTargetFrame(){
+}
+
+function buildPlayerFrame(){
+    if(!humanPlayer){ return; };
+    var info_txt = document.createElement('p'),
+        mana = document.createElement('div'),
+        container = document.createElement('div'),
+        health = document.createElement('div');
+ 
+    
+    container.style.cssText = " top: 50%; left: 30%; width: 150px; height 45px; position: absolute; background-color: black;";
+    mana.style.cssText = "float: left; width: 100%; height: 15px; background-color: blue;";
+    health.style.cssText =  "float: left; width: 100%; height: 30px; background-color: "+classColors[humanPlayer.classID]+";";
+    info_txt.style.cssText = "margin-left: 5px; font-size: 11px;";
+    info_txt.innerHTML = humanPlayer.name + "   " + humanPlayer.level;
+
+    container.id = "target_cont";
+    health.id = "player_health";
+    mana.id = "player_mana";
+    
+    document.body.appendChild(container);
+    container.appendChild(health);
+    health.appendChild(info_txt);
+    container.appendChild(mana);
+}
+
+function buildSpellBar(){
+    
+    if(!humanPlayer){ return; };
+    
+    humanPlayer.spells.map(function(spell){
+        var iconURL = "http://wow.zamimg.com/images/wow/icons/large/"+ getSpellData(spell.id).icon + ".jpg";
+        addActionButton(iconURL);
+    });
+    
+    function addActionButton(iconURL){
+        var actionButton = document.createElement("div");
+        var spellbar = document.getElementById("spellbar");
+        
+        spellbar.style.cssText = "width: 500px; height: 50px;";
+        actionButton.style.cssText = "margin: 3px; float: left; width: 50px; height: 50px; background-size: contain; background-image: url('"+iconURL+"')";
+        spellbar.appendChild(actionButton);
+    }
+}
 function buildRaidFrames() {
     var i,
         border,

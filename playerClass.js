@@ -35,7 +35,14 @@ function Player() {
         // get scaling data from getScaleData("datatype", level , class)    
     };
     
-    this.spells = [   { id:0, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500 }   ];
+    /* Dummy spells for testing, the ID is real */
+    
+    this.spells = [   { id:2061, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500 },
+                      { id:53563, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
+                      { id:20473, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
+                      { id:82327, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
+
+                  ];
 
     
     this.auras = [];
@@ -83,7 +90,8 @@ Player.prototype.useAbility = function(spellObject){
             console.log("Invalid or no target");
             return;
         }
-    }  
+    } 
+
     castTime = spell.casttime * (1 - player.a_stats.haste);
     dbg_chat.addLine("Casting: " + spell.name + "  -  Execute time: " + castTime);
     player.isCasting == true;
@@ -109,6 +117,12 @@ Player.prototype.hasAura = function(auraIDorName){
 };
 
 Player.prototype.hasResist = function(resistType){ // physical, shadow, frost etc.
+}
+
+Player.prototype.setTarget = function(target) {
+        if(target){
+            this.currentTarget = target;
+        }
 }
 
 Player.prototype.getHealthPercent = function () {
@@ -181,6 +195,7 @@ Player.prototype.changeHealth = function (amount, type, source, casterName, effe
     ACTIONOBJECT
     {
         action: "damage",
+        fromSpell: spellid
         school: "physical,
         source: "melee",
         value:  62000        
@@ -198,7 +213,7 @@ Player.prototype.apply = function(actionObject) {
        // case: "aura"
     }
             
-    function handleDamage(){ // same as Player.prototype.changeHealth() , just much more readable. 
+    function handleDamage() { // same as Player.prototype.changeHealth() , just much more readable. 
             var value = actionObject.value;
 
             if(actionObject.source === 'melee'){

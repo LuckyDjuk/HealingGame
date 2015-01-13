@@ -1,6 +1,8 @@
 html{
 	overflow: hidden;
 }
+div.inline { float:left; }
+.clearBoth { clear:both; }
 
 body{
 	height: 100%;
@@ -26,6 +28,14 @@ div#bg1{
 	top: 0;
 	left: 0;
 	color: #70DBDB;
+}
+
+div#spellbar{
+    width: 500px; 
+    height: 50px;
+    position: absolute;
+    top: 500;
+    left: 40%;
 }
 /*
 div#optionMenu{
