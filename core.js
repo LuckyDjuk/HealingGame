@@ -2,13 +2,6 @@
     Core.js
 */
 
-var classColorsTxT = ["#C41F3B", "#FF7D0A", "#ABD473", "#69CCF0", "#00FF96",
-    "#F58CBA", "#FFFFFF", "#FFF569", "#0070DE", "#9482C9", "#C79C6E"
-    ];
-var classColors = ["#8c162a", "#8c4406", "#678045", "#386c80", "#008c52",
-    "#8c506a", "#8c8c8c", "#8c873a", "#00468c", "#675b8c", "#8c6e4d"
-    ];
-
 var mainChat = new Chat("mainchat");
 var dbg_chat = new Chat("dbg");
 var humanPlayer;
@@ -27,17 +20,25 @@ function init() {
     buildSpellBar();
     
     var optionMenu = new dat.GUI;
-    optionMenu.add(window, 'testCombatLogSim');
+    optionMenu.add(clParser, 'testCombatLogSim');
     optionMenu.add(window, 'smartAoeHeal');
     optionMenu.add(window, 'aoeDamage');
     optionMenu.add(window, 'buildSpellBar');
     
+    console.log('%c Healing Game - World Of Warcraft healing simulation', 'background: #222; color: #bada55');
     var screenUpdate = setInterval(updateScreen, 250);       
 }
 
+
 function aoeDamage(){
     for(var x = 0; x < raid.length; x++){
-        raid[x].changeHealth(-Math.abs(Math.random()*15000+15000), "physical", "bah", "Garrosh Hellscream", "damage");
+        handleDamage({
+            source: "test",
+            destination: raid[x],
+            school: 'physical',
+            damage_source: 'melee',
+            value: 20493
+        });
     }
 }
 
@@ -96,7 +97,7 @@ function buildPlayerFrame(){
     
     container.style.cssText = " top: 50%; left: 30%; width: 150px; height 45px; position: absolute; background-color: black;";
     mana.style.cssText = "float: left; width: 100%; height: 15px; background-color: blue;";
-    health.style.cssText =  "float: left; width: 100%; height: 30px; background-color: "+classColors[humanPlayer.classID]+";";
+    health.style.cssText =  "float: left; width: 100%; height: 30px; background-color: "+getClassColor(humanPlayer.classID)+";";
     info_txt.style.cssText = "margin-left: 5px; font-size: 11px;";
     info_txt.innerHTML = humanPlayer.name + "   " + humanPlayer.level;
 
@@ -108,6 +109,15 @@ function buildPlayerFrame(){
     container.appendChild(health);
     health.appendChild(info_txt);
     container.appendChild(mana);
+}
+
+
+function setTarget(event){
+
+        var raidid = parseInt(event.id.replace("border",""));
+        humanPlayer.setTarget(raid[raidid]);
+        console.log("Your target is now: " + humanPlayer.currentTarget.name);
+            
 }
 
 function buildSpellBar(){
@@ -151,8 +161,8 @@ function buildRaidFrames() {
         border.setAttribute("onClick", "setTarget(this)");
         border.className = "raidMemberBorder";
         health.id = "health" + i;
-        health.style.backgroundColor = classColors[(raid[i].classID)];
-        name.style.color = classColorsTxT[(raid[i].classID)];
+        health.style.backgroundColor = getClassColor(raid[i].classID);
+        name.style.color = getClassColorTxT(raid[i].classID);
         health.className = "raidmember";
         node = document.createTextNode(raid[i].name.slice(0,6));
         document.getElementById('raidcontainer').appendChild(border);

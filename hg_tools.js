@@ -1,7 +1,8 @@
-// En basic javascript module, kan putte alt mulig rart her så vi slippe å ha det global. Javascript støtta egentlig ikkje modules eller private ting :p men med rare hax så går det. Vi burde kanskje bruke Typescript, så blir det lettere for oss og andre å hjelpe til med projektet.
 
 var HG_TOOLS = ( function () {
     HG_TOOLS = {};
+    
+    //### Game tools module. ###########
     
     HG_TOOLS.isItCrit = function(chanceToCrit) {
         var rand_num = HG_TOOLS.rngFromTo(0, 100); //random number from 0 - 100
@@ -50,28 +51,132 @@ var HG_TOOLS = ( function () {
     }; 
     
     
-    HG_TOOLS.CountDown = function CountDown(ms) {
+    HG_TOOLS.generatePlayerName = function() {
+        var randomNames = "Tiondel, \
+        Elynd, \
+        Amyndil, \
+        Anyriand, \
+        Tal, \
+        Vail, \
+        Swra, \
+        Jungwen, \
+        Reijiicy, \
+        Ellys, \
+        Elella, \
+        Lacla, \
+        Gliliwen, \
+        Qendawen, \
+        Win, \
+        Xantis, \
+        Mardoclya, \
+        Adrang, \
+        Cawind, \
+        Garine, \
+        Kun, \
+        Delorthian, \
+        Grauno, \
+        Eno, \
+        Johero, \
+        Traugh, \
+        Eithaenn, \
+        Kharzak, \
+        Bronk, \
+        Wildmane, \
+        Toljo, \
+        Hoofwhite, \
+        Enyepada, \
+        Cloudhorn, \
+        Heftig, \
+        Maldehm, \
+        Baine, \
+        Cougerfur, \
+        Grimtorn, \
+        Yorrick, \
+        Nojha, \
+        Taur, \
+        Blackmane, \
+        Gait, \
+        Enan, \
+        Longhorn, \
+        Limjo, \
+        Longknife, \
+        Thunderhorn, \
+        Fylyn, \
+        Halrima, \
+        Roikyla, \
+        Thullana, \
+        Toillane, \
+        Gupyna, \
+        Gyda, \
+        Dokyla, \
+        Pukela, \
+        Thellana, \
+        Tillena, \
+        Elrioril, \
+        Eowyr, \
+        Elviol, \
+        Araytha, \
+        Ibaregan, \
+        Unomalith, \
+        Zerfall, \
+        Unilajar, \
+        Olaonwan, \
+        Arauder, \
+        Qae, \
+        Halrik, \
+        Zardorin, \
+        Fraliwyr, \
+        Thigovudd, \
+        Gweann, \
+        Higod, \
+        Fedriric, \
+        Brierid, \
+        Wice, \
+        Umeilith, \
+        Ferraseth, \
+        Eowiragan, \
+        Wev, \
+        Vilajan, \
+        Grilinwan, \
+        Rhonen, \
+        Cendawyth, \
+        Etardord, \
+        Haeran, \
+        Praesean, \
+        Kedoabard, \
+        Etaotha, \
+        Acuwin, \
+        Landazar, \
+        Erigop, \
+        Umilawin, \
+        Goswin, \
+        Siraldan, \
+        Choi, \
+        Pendash, \
+        Lasko, \
+        Crirawan, \
+        Pendali, \
+        Bie, \
+        Prerrahar, \
+        Onirew, \
+        Ocyld, \
+        Haldir, \
+        Adol, \
+        Galeannor, \
+        Merek, \
+        Prohawin, \
+        Kalilath, \
+        Umohasean, \
+        Laroed, \
+        Yboa, \
+        Gwea, \
+        Rhilild";
+  		var nameArray = randomnames.split(",")
+  		var x = Math.round(Math.random()*nameArray.length-1);
+		return nameArray[x];
 
-        var interval_id = setInterval(tick, 100);
-        var progress_ms = ms;
-
-   
-        function tick() {
-       
-        if (progress_ms <= 0) {
-            clearInterval(interval_id);
-            return;
-        }
-        progress_ms = progress_ms - 100;
-        }
+    }
     
-        function getProgress (){
-            return progress_ms;
-        }
-    
-        return { progress: function(){ return getProgress()} };
-
-    };
-    
+    // ###############################
     return HG_TOOLS;
 }());

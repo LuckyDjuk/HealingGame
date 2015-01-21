@@ -1,61 +1,73 @@
 
-function Player() {
+function Player(constructorObject) {
 
     this.id = null;
-    this.name = generateName();
+    this.name = HG_TOOLS.generatePlayerName() || "BUG";
     this.classID = Math.floor(Math.random() * 11); 
     this.level = 100;
-
+    
+    /* Targetting */
+    this.currentTarget = "noTarget"; //id of target enitiy
+    this.hasTarget = true;
+    /* Player status bools */
+    this.isAlive = true;
+    this.isCasting = false;
+    this.onGlobal = false;
+    
     this.stats = {  // Stats from gear
         
         int: 20000,
         stamina: 29913,
         haste: 12.38,
         mastery: 0,
-        mana: 300000,
         crit: 29.44,
         dodge: 5,
         spirit: 0,
         armorPercent: 30,
+        maxMana: 300000,
         maxHealth: 110454
     };
 
     this.a_stats = {  // Calculated stats for spells
         
-        mastery: null,//this.class.mastery(),
-        spellpower: null,
-        health: null,
-        physical_resist: 0, // basicly armor
-        all_resist: 0,
-        magic_resist: 0,     
-        amlifications: null, // For example healing taken reduced by %
-        haste: 0.20,
-        crit: null
-        
-        // get scaling data from getScaleData("datatype", level , class)    
+        health: this.stats.maxHealth,
+        resistance: { // number between 0 and 1 to use in calculations
+            absorb: 1251,    // Absorbs goes under resistance aswell to avoid redudancy. Logically it makes sense too 
+            healing_taken: 0, 
+            physical: 0.45,
+            magic: 0,
+            all: 0,
+            frost: 0,
+            nature: 0,
+            fire: 0,
+            shadow: 0,
+            holy: 0,
+            nature: 0
+        },
+        avoidance: {
+            miss: 0,
+            parry: 0,
+            dodge: 0
+        },
+        enhancements: {
+            healing_versatality: 0,
+            damage_versatality: 0,
+            spellpower: 0,
+            crit: 0,
+        }
+
     };
     
     /* Dummy spells for testing, the ID is real */
     
-    this.spells = [   { id:2061, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500 },
+    this.spells = [   { id:2061,  name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
                       { id:53563, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
                       { id:20473, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
                       { id:82327, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
 
                   ];
 
-    
-    this.auras = [];
-    this.currentHealth = this.stats.maxHealth;
 
-    this.currentTarget = "noTarget"; //id of target enitiy
-    this.hasTarget = true;
-
-    this.isAlive = true;
-    this.absorbs = 0;
-    this.isCasting = false;
-    this.castProgress = 0;
-    this.gdc = 0;
 }
 
 Player.prototype.useAbility = function(spellObject){
@@ -63,6 +75,8 @@ Player.prototype.useAbility = function(spellObject){
         player = this;
         castTime = 0;
     
+    
+    //#### CHECK IF ITS LEGAL TO CAST ##############/
     if (player.isCasting) {
         console.log("Can't Use That Yet.");
         return;
@@ -90,149 +104,42 @@ Player.prototype.useAbility = function(spellObject){
             console.log("Invalid or no target");
             return;
         }
-    } 
-
-    castTime = spell.casttime * (1 - player.a_stats.haste);
-    dbg_chat.addLine("Casting: " + spell.name + "  -  Execute time: " + castTime);
-    player.isCasting == true;
-    var countdown = setTimeout(castFinished,castTime);
-    
-    function castFinished(){
-        
-            player.isCasting == false;
-            //spell.use();
-            player.stats.mana -= spell.manacost;
-            
-            dbg_chat.addLine("Finished casting: " + spell.name);
-        
     }
+    
+    // Execute cast
 }
 
 Player.prototype.modStat = function(statName, value){ // function to modify stats
-       // example: target.modStat("int",20)
+       if(typeof value != 'number'){
+           console.log("Error in Player.modStat: value is not number");
+           return;
+       }
+       if(this.stats[statName]) {
+           this.stats[statName] += value;
+       }
+       if(this.a_stats[statName]) {
+           this.a_stats[statName] += value;
+       }
 };
 
 Player.prototype.hasAura = function(auraIDorName){
                 // returns true of false based on the player having the aura.
 };
 
-Player.prototype.hasResist = function(resistType){ // physical, shadow, frost etc.
+Player.prototype.getResist = function(resistType){ // Returns the resist value , or false if there is no resistance at all.
+        for (resistance in this.a_stats.resistance){
+            if (resistance === resistType){
+                return this.a_stats.resistance[resistance];
+            }
+        }
+        return false;
 }
 
 Player.prototype.setTarget = function(target) {
-        if(target){
-            this.currentTarget = target;
-        }
+        this.currentTarget = target;
+
 }
 
 Player.prototype.getHealthPercent = function () {
-        return (this.currentHealth / this.stats.maxHealth) * 100;
+        return (this.a_stats.health / this.stats.maxHealth) * 100;
 };
-
-Player.prototype.changeHealth = function (amount, type, source, casterName, effect) {
-        if (!this.isAlive) {
-            return;
-        }
-        var raw_amount_cpy = amount, // Keep a copy of the original value
-            amount_cpy = amount,
-            caster = casterName || "Environment";
-
-        /// RESISTANCE & AVOIDANCE
-        
-        if (type === "physical") { // If damage type is Physical , armor will reduce the damage
-            amount_cpy = amount_cpy * (1 - (this.stats.armorPercent / 100));
-
-            if (source === "melee") { // If source is melee then avoidance will be possible.
-                var roll = Math.floor(Math.random() * 100);
-                if (roll <= this.stats.dodge) {
-                    mainChat.addLine("<p id = 'system'>" + caster + "</p>  hits " + this.name + "<p id='error'> ,dodged</p>");
-                    return;
-                }
-            }
-        }
-        /// ABSORBS
-        if (this.absorbs > 0 && effect === "damage") { // If type is damage and player has absorbs on them.
-            var x = amount_cpy + this.absorbs; // 
-            if (x >= 0) { // If there is more absorb left after the damage is taken
-                this.absorbs = x;
-                amount_cpy = 0;
-            } else { // 
-                amount_cpy += this.absorbs;
-                this.absorbs = 0;
-            }
-
-        }
-        // CHECK IF STILL ALIVE
-        if ((this.currentHealth + amount_cpy) <= 0) { // Check if the player dies
-            this.currentHealth = 0;
-            this.isAlive = false;
-            return;
-        }
-
-        // OVERHEALING
-        if ((this.currentHealth + amount_cpy) >= this.stats.maxHealth) { // Check if the value goes over maximum possible health.
-            this.currentHealth = this.stats.maxHealth;
-            return;
-        }
-        //
-    
-        this.currentHealth += amount_cpy;
-
-        if (raw_amount_cpy < 0) {
-            mainChat.addLine(caster + " did<p id ='system'>" + Math.abs(amount_cpy.toFixed(0)) + "  ( " +
-            Math.abs(raw_amount_cpy.toFixed(0) - amount_cpy.toFixed(0)) + " absorbed by Armor)</p> damage to : <p id = 'error'>" + this.name + "</p>");
-        }
-};
-
-/*
-    Ideen bak apply() e at alt som kan skje med en player går igjennom dinna funksjonen, som da sende det videre til "subroutines".
-    Komme til å replace changeHealth funksjonen med ditta, etterkvert som motivasjonen kjeme ;D.
-    
-    Eksempel:
-    
-    Eg sende ett objekt til dinna funksjonen som ser sånn ut:
-    
-    ACTIONOBJECT
-    {
-        action: "damage",
-        fromSpell: spellid
-        school: "physical,
-        source: "melee",
-        value:  62000        
-    }
-    
-    
-
-*/
-Player.prototype.apply = function(actionObject) {
-    switch(actionObject.action){
-        case "damage":
-            handleDamage();
-            break;
-       // case: "healing"
-       // case: "aura"
-    }
-            
-    function handleDamage() { // same as Player.prototype.changeHealth() , just much more readable. 
-            var value = actionObject.value;
-
-            if(actionObject.source === 'melee'){
-                // avoidance will happen here : parry - dodge - block??
-            }
-            
-            if(this.getResist(actionObject.school)){ // if player has any resistance to the thing happening to them. Armor goes under resitance aswell
-                value *= this.getResist(apply.Object.school);
-            }
-            
-            if(this.getResist("all")){
-                value *= this.getResist("all");
-            }
-            
-            if(this.a_stats.absorbs){
-                value -= absorbs; 
-            }
-            
-            this.modStat("health", -Math.abs(value));
-    }
-
-}
