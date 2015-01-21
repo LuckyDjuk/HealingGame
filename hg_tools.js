@@ -53,125 +53,125 @@ var HG_TOOLS = ( function () {
     
     HG_TOOLS.generatePlayerName = function() {
         var randomNames = "Tiondel, \
-        Elynd, \
-        Amyndil, \
-        Anyriand, \
-        Tal, \
-        Vail, \
-        Swra, \
-        Jungwen, \
-        Reijiicy, \
-        Ellys, \
-        Elella, \
-        Lacla, \
-        Gliliwen, \
-        Qendawen, \
-        Win, \
-        Xantis, \
-        Mardoclya, \
-        Adrang, \
-        Cawind, \
-        Garine, \
-        Kun, \
-        Delorthian, \
-        Grauno, \
-        Eno, \
-        Johero, \
-        Traugh, \
-        Eithaenn, \
-        Kharzak, \
-        Bronk, \
-        Wildmane, \
-        Toljo, \
-        Hoofwhite, \
-        Enyepada, \
-        Cloudhorn, \
-        Heftig, \
-        Maldehm, \
-        Baine, \
-        Cougerfur, \
-        Grimtorn, \
-        Yorrick, \
-        Nojha, \
-        Taur, \
-        Blackmane, \
-        Gait, \
-        Enan, \
-        Longhorn, \
-        Limjo, \
-        Longknife, \
-        Thunderhorn, \
-        Fylyn, \
-        Halrima, \
-        Roikyla, \
-        Thullana, \
-        Toillane, \
-        Gupyna, \
-        Gyda, \
-        Dokyla, \
-        Pukela, \
-        Thellana, \
-        Tillena, \
-        Elrioril, \
-        Eowyr, \
-        Elviol, \
-        Araytha, \
-        Ibaregan, \
-        Unomalith, \
-        Zerfall, \
-        Unilajar, \
-        Olaonwan, \
-        Arauder, \
-        Qae, \
-        Halrik, \
-        Zardorin, \
-        Fraliwyr, \
-        Thigovudd, \
-        Gweann, \
-        Higod, \
-        Fedriric, \
-        Brierid, \
-        Wice, \
-        Umeilith, \
-        Ferraseth, \
-        Eowiragan, \
-        Wev, \
-        Vilajan, \
-        Grilinwan, \
-        Rhonen, \
-        Cendawyth, \
-        Etardord, \
-        Haeran, \
-        Praesean, \
-        Kedoabard, \
-        Etaotha, \
-        Acuwin, \
-        Landazar, \
-        Erigop, \
-        Umilawin, \
-        Goswin, \
-        Siraldan, \
-        Choi, \
-        Pendash, \
-        Lasko, \
-        Crirawan, \
-        Pendali, \
-        Bie, \
-        Prerrahar, \
-        Onirew, \
-        Ocyld, \
-        Haldir, \
-        Adol, \
-        Galeannor, \
-        Merek, \
-        Prohawin, \
-        Kalilath, \
-        Umohasean, \
-        Laroed, \
-        Yboa, \
-        Gwea, \
-        Rhilild";
-  		var nameArray = randomnames.split(",")
+Elynd, \
+Amyndil, \
+Anyriand, \
+Tal, \
+Vail, \
+Swra, \
+Jungwen, \
+Reijiicy, \
+Ellys, \
+Elella, \
+Lacla, \
+Gliliwen, \
+Qendawen, \
+Win, \
+Xantis, \
+Mardoclya, \
+Adrang, \
+Cawind, \
+Garine, \
+Kun, \
+Delorthian, \
+Grauno, \
+Eno, \
+Johero, \
+Traugh, \
+Eithaenn, \
+Kharzak, \
+Bronk, \
+Wildmane, \
+Toljo, \
+Hoofwhite, \
+Enyepada, \
+Cloudhorn, \
+Heftig, \
+Maldehm, \
+Baine, \
+Cougerfur, \
+Grimtorn, \
+Yorrick, \
+Nojha, \
+Taur, \
+Blackmane, \
+Gait, \
+Enan, \
+Longhorn, \
+Limjo, \
+Longknife, \
+Thunderhorn, \
+Fylyn, \
+Halrima, \
+Roikyla, \
+Thullana, \
+Toillane, \
+Gupyna, \
+Gyda, \
+Dokyla, \
+Pukela, \
+Thellana, \
+Tillena, \
+Elrioril, \
+Eowyr, \
+Elviol, \
+Araytha, \
+Ibaregan, \
+Unomalith, \
+Zerfall, \
+Unilajar, \
+Olaonwan, \
+Arauder, \
+Qae, \
+Halrik, \
+Zardorin, \
+Fraliwyr, \
+Thigovudd, \
+Gweann, \
+Higod, \
+Fedriric, \
+Brierid, \
+Wice, \
+Umeilith, \
+Ferraseth, \
+Eowiragan, \
+Wev, \
+Vilajan, \
+Grilinwan, \
+Rhonen, \
+Cendawyth, \
+Etardord, \
+Haeran, \
+Praesean, \
+Kedoabard, \
+Etaotha, \
+Acuwin, \
+Landazar, \
+Erigop, \
+Umilawin, \
+Goswin, \
+Siraldan, \
+Choi, \
+Pendash, \
+Lasko, \
+Crirawan, \
+Pendali, \
+Bie, \
+Prerrahar, \
+Onirew, \
+Ocyld, \
+Haldir, \
+Adol, \
+Galeannor, \
+Merek, \
+Prohawin, \
+Kalilath, \
+Umohasean, \
+Laroed, \
+Yboa, \
+Gwea, \
+Rhilild";
+  		var nameArray = randomNames.split(",")
   		var x = Math.round(Math.random()*nameArray.length-1);
 		return nameArray[x];
 
