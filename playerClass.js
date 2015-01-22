@@ -1,13 +1,14 @@
 
-function Player(constructorObject) {
+function Player(constructorOptions) {
 
-    this.id = null;
-    this.name = HG_TOOLS.generatePlayerName() || "BUG";
-    this.classID = Math.floor(Math.random() * 11); 
-    this.level = 100;
-    
+    this.id = null; // A unique id should be generated for each instance. Not sure about implementation yet
+    this.name = constructorOptions.name || 'noName:(';
+    this.classID = constructorOptions.classid || 0;
+    this.level = constructorOptions.level || 100;
+    /* What raid party the player is in - needed for group-based heals like prayer of healing */
+    this.subGroup = null;
     /* Targetting */
-    this.currentTarget = "noTarget"; //id of target enitiy
+    this.currentTarget = "noTarget";
     this.hasTarget = true;
     /* Player status bools */
     this.isAlive = true;
@@ -25,16 +26,16 @@ function Player(constructorObject) {
         spirit: 0,
         armorPercent: 30,
         maxMana: 300000,
-        maxHealth: 110454
+        maxHealth: 700454
     };
 
     this.a_stats = {  // Calculated stats for spells
         
         health: this.stats.maxHealth,
         resistance: { // number between 0 and 1 to use in calculations
-            absorb: 1251,    // Absorbs goes under resistance aswell to avoid redudancy. Logically it makes sense too 
+            absorb: 125457,    // Absorbs goes under resistance aswell to avoid redudancy. Logically it makes sense too 
             healing_taken: 0, 
-            physical: 0.45,
+            physical: 0.40,
             magic: 0,
             all: 0,
             frost: 0,
@@ -45,20 +46,22 @@ function Player(constructorObject) {
             nature: 0
         },
         avoidance: {
-            miss: 0,
-            parry: 0,
-            dodge: 0
+            miss: 4.0,
+            parry: 14.5,
+            dodge: 31.6
         },
         enhancements: {
             healing_versatality: 0,
             damage_versatality: 0,
             spellpower: 0,
             crit: 0,
+            haste: 0,
+            mastery: 0
         }
 
     };
     
-    /* Dummy spells for testing, the ID is real */
+    /* Dummy spells for testing, the ID is real, spell bar is generated based on whats here */
     
     this.spells = [   { id:2061,  name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
                       { id:53563, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
@@ -66,11 +69,9 @@ function Player(constructorObject) {
                       { id:82327, name:"Healing Surge", casttime: 1500, powercost:2400, powertype:"mana", effect: null , cooldown: 8000, gcd: 1500},
 
                   ];
-
-
 }
 
-Player.prototype.useAbility = function(spellObject){
+Player.prototype.useAbility = function(spellObject) {
     var spell = spellObject,
         player = this;
         castTime = 0;
@@ -109,7 +110,8 @@ Player.prototype.useAbility = function(spellObject){
     // Execute cast
 }
 
-Player.prototype.modStat = function(statName, value){ // function to modify stats
+// ### MOD STAT ### Function to modify stats. returns undefined. ex modStat("int", -20);
+Player.prototype.modStat = function(statName, value) { 
        if(typeof value != 'number'){
            console.log("Error in Player.modStat: value is not number");
            return;
@@ -120,19 +122,22 @@ Player.prototype.modStat = function(statName, value){ // function to modify stat
        if(this.a_stats[statName]) {
            this.a_stats[statName] += value;
        }
+       if(statName === 'absorb'){
+           this.a_stats.resistance.absorb += value;
+       }
 };
 
-Player.prototype.hasAura = function(auraIDorName){
-                // returns true of false based on the player having the aura.
-};
-
-Player.prototype.getResist = function(resistType){ // Returns the resist value , or false if there is no resistance at all.
-        for (resistance in this.a_stats.resistance){
+// ### GET RESIST ### Returns the resist value , or 0 if there is no resistance at all.
+Player.prototype.getResist = function(resistType) {
+        for (resistance in this.a_stats.resistance) {
             if (resistance === resistType){
                 return this.a_stats.resistance[resistance];
             }
         }
         return false;
+}
+
+Player.prototype.calcStats = function() {
 }
 
 Player.prototype.setTarget = function(target) {
@@ -142,4 +147,11 @@ Player.prototype.setTarget = function(target) {
 
 Player.prototype.getHealthPercent = function () {
         return (this.a_stats.health / this.stats.maxHealth) * 100;
+};
+
+Player.prototype.getAvoidance = function(avoidanceType){ 
+}
+
+// Returns true of false based on the player having the aura.
+Player.prototype.hasAura = function(auraIDorName){
 };

@@ -1,10 +1,6 @@
 /* parser.js 
 
    Beginnings of a WoW combatlog parser. It's very simple atm, needs alot more work to be able to handle everything.
-   
-   To try it you can use these commands in the browser console(in the right order):
-   
-   clSimTest(parseCL());
 
 */
 var clParser = (function(){
@@ -12,9 +8,11 @@ var clParser = (function(){
     
     clParser.testCombatLogSim = function() {
             clSimTest(clParser.parse());
+            while(true);
     }
     
-    clParser.parse = function(rawcombatlog) {  // Takes a raw WoW combat log and parses it, returning an array of event-objects.
+    // Takes a raw WoW combat log and parses it, returning an array of event-objects.
+    clParser.parse = function(rawcombatlog) {
         var combatlog = rawcombatlog || document.getElementById('cl_input').value.split('\n'),
             logStartTime = HHMMSStoMS(combatlog[0].slice(6, 17)), 
             currentLine,

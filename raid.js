@@ -4,9 +4,15 @@ var raidsize =  20 ;
 
 function makeRaid(raidsize) { // makes an array of Player objects.
     var grp = [];
+    var p;
 
     for (var x = 0; x < raidsize; x++) {; // random class 0-11
-        p = new Player();
+            
+        p = new Player({
+            name: HG_TOOLS.generatePlayerName(),
+            classid: HG_TOOLS.rngFromTo(0,11).toFixed(),
+            level: 100
+        });
         grp.push(p);
         raid.push(p);
 

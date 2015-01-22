@@ -7,42 +7,49 @@ var dbg_chat = new Chat("dbg");
 var humanPlayer;
 
 function init() {
-    // --- reset stuff ---
+    // --- Reset stuff --------------------------------------
     raidgrp = [];
     document.getElementById('raidcontainer').innerHTML = '';
     raid = [];
     makeRaid(raidsize);
     humanPlayer = raid[0];
-    // -------------------
-    makeRaid(raidsize);
+    // ----- Build the UI elements ---------------------------
     buildRaidFrames();
     buildPlayerFrame();
     buildSpellBar();
-    
+    //------ Build the option menu ---------------------------
     var optionMenu = new dat.GUI;
-    optionMenu.add(clParser, 'testCombatLogSim');
-    optionMenu.add(window, 'smartAoeHeal');
-    optionMenu.add(window, 'aoeDamage');
-    optionMenu.add(window, 'buildSpellBar');
-    
+    optionMenu.add(clParser,'testCombatLogSim');
+    optionMenu.add(window,'smartAoeHealTest');
+    optionMenu.add(window,'aoeDamageTest');
+    optionMenu.add(window,'buildSpellBar');
+    // ---- Welcome message for the javascript console -------
     console.log('%c Healing Game - World Of Warcraft healing simulation', 'background: #222; color: #bada55');
-    var screenUpdate = setInterval(updateScreen, 250);       
+    //----- Set a interval for the updateScreen function -----
+    var screenUpdate = setInterval(updateScreen, 100);
+    /* Sidenote: 
+       The screenUpdate variable contains the return value of setInterval(), 
+       which is an interval id. This can be used to cancel the interval 
+       using clearInterval(intervalID);
+    */
 }
 
 
-function aoeDamage(){
+function aoeDamageTest() {
+    var damage_amount;
     for(var x = 0; x < raid.length; x++){
+        damage_amount = HG_TOOLS.rngFromTo(100000,250000)
         handleDamage({
             source: "test",
             destination: raid[x],
             school: 'physical',
-            damage_source: 'melee',
-            value: 20493
+            damageSource: 'melee',
+            value: damage_amount
         });
     }
 }
 
-function smartAoeHeal(){
+function smartAoeHealTest(){
     var mostInjured = getMostInjured(7);
     for(var x = 0; x < mostInjured.length; x++){
         mostInjured[x].changeHealth(20000);
@@ -71,13 +78,13 @@ function updateRaidFrames(){
         //jquery animation for health bars
        $(healthFrameID).animate({
        width: healthPercent
-       }, 200);
+       }, 50);
         
         
         if(playerID == 0){
             $('#player_health').animate({
                 width: healthPercent
-                }, 200);
+                }, 50);
         }
     }
 }

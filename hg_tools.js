@@ -50,6 +50,15 @@ var HG_TOOLS = ( function () {
         return arr[0]*60000*60000 + arr[1]*60000 + arr[2]*1000;
     }; 
     
+    HG_TOOLS.rng100 = function(valuebetween1and100){
+        var input = valuebetween1and100;
+        var rand = Math.random()*100;
+        
+        if(input >= rand){
+           return true;
+        }
+        return false;
+    }
     
     HG_TOOLS.generatePlayerName = function() {
         var randomNames = "Tiondel, \
