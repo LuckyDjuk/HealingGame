@@ -1,28 +1,13 @@
-/*
-    RESTO SHAMAN
 
-    Eventually want this to be possible to "import" into the Player class
-    Lets say, if the Player class is resto shaman. Then all these spells should be imported into that.
-    Not sure how yet. But i've started hardcoding the spells anyway.
+
+/* 
+    Spells.
+    We could just hardcode spells(example below), at least to begin with - much easier than the alternative.
     
-    MASTERY        - Complete
-    HEALING SURGE  - Complete
-    CHAIN HEAL     - Missing
-    HEALING RAIN   - Missing
-    TOTEMS         - Missing
-    RIPTIDE        - Missing
-    HEALING WAVE   - Missing
-    EARTH SHIELD   - Missing
-
+    Below is an example of how it could look like.
 */
 
-function resto_shaman_mastery() {    
-    return ((1 - (raid[this._target].getHealthPercent() / 100)) * this.mastery) + 1;
-}
 
-/* resto_shaman_healing_surge
-   # Calculates how much healing surge should heal for and returns the amount.
-*/
 function resto_shaman_healing_surge(caster, target) {
     var amount = 0;
     var spell_scaling = getScaleData('SPELL_SCALING','shaman',this.level); 
@@ -57,4 +42,8 @@ function resto_shaman_healing_surge(caster, target) {
         amount = amount * 2;
     }
     return amount;
+}
+
+function resto_shaman_mastery() {    
+    return ((1 - (raid[this._target].getHealthPercent() / 100)) * this.mastery) + 1;
 }

@@ -3,7 +3,7 @@
 
 /* 
     ### DAMAGE HANDLER ###
-    This should be able to handle any basic form of damage that exists in the game , and output the right amount.
+    This should be able to handle any basic form of damage that exists in the game.
     
     The input it takes is an object like this:
             {
@@ -14,15 +14,15 @@
                 value: raw_damage_amount_number
             }
     You can see it used in core.js in the aoeDamageTest() function.
-    The idea is that both damage spells and auras can produce these kind of objects. To keep everything more modular.
-
+    The idea is that both damage spells and auras can produce these kind of objects. To keep everything more modular. 
+    
 */ 
 
 function handleDamage(actionObj) {
         var action = actionObj;
         var dmg = action.value;
         var avoided_damage = false;
-        var output_data = { // Capture some data to use for combat logging etc
+        var output_data = { // Capture some data to use for combatlogging etc.
             parry:false,
             dodge:false,
             blocked: 0,
@@ -32,7 +32,7 @@ function handleDamage(actionObj) {
         }
         
         //-------- AVOIDANCE ------------------------------------------------------------------------------------------------
-        if(action.damageSource === 'melee'){
+        if(action.damageSource === 'melee') {
             // This needs to be finished
             if(action.destination.getAvoidance('dodge')){avoided_damage === true;}
 
@@ -44,26 +44,26 @@ function handleDamage(actionObj) {
         }
 
         //------- RESISTANCE --- happens if the damage was not completely avoided ------------------------------------------
-        if(!avoided_damage){
+        if(!avoided_damage) {
             var capture_resisted = dmg;
             
-            //---- Checks if player has any resistance to the thing happening to them. Armor goes under resitance aswell ---
-            if(action.destination.getResist(action.school)){
+            //---- Checks if player has any resistance to the damage school. Armor goes under resitance/spellschool aswell ---
+            if(action.destination.getResist(action.school)) {
                 dmg *= 1-(action.destination.getResist(action.school));
             }
             
             //---- Checks if player has any resistance to all types of damage -----------------------------------------------
-            if(action.destination.getResist("all")){ 
-                dmg *= 1-(action.destination.getResist("all"));
+            if(action.destination.getResist('all')) { 
+                dmg *= 1-(action.destination.getResist('all'));
             }
             output_data.resisted = capture_resisted - dmg;
             
             //---- Checks if any absorb is on the player --------------------------------------------------------------------
-            if(action.destination.getResist('absorb')){
+            if(action.destination.getResist('absorb')) {
                 var dmg_before_absorb = dmg,
                     player_absorb_amount = action.destination.getResist('absorb');
                 // ---- Full absorb ------------------------------------------------------
-                if(player_absorb_amount > dmg){
+                if(player_absorb_amount >= dmg) {
                   action.destination.modStat('absorb', -Math.abs(dmg));
                   output_data.absorbed = dmg;
                   dmg = 0;
@@ -91,12 +91,27 @@ function handleDamage(actionObj) {
         action.destination.modStat("health", -Math.abs(dmg));
 }
 
-/*  Handle healing ?  */
+/*  Handle healing -- healing handler, not really sure what should happen here yet, but will figure it out.  */
 function handleHealing() {
         
 }
 
-/* Aura handling */
-function auraApply () {
+/* Aura handling - er faktisk heilt stuck her.
+
+*/
+var applyAura = (function(){
+    var applyAura = {};
     
-}
+    
+    applyAura.mod_stat = function() {
+
+    }
+    
+    applyAura.periodic_mod_stat = function() {
+        
+    }
+    
+    
+    return applyAura;
+    
+})();

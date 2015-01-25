@@ -1,28 +1,25 @@
-var raid;
-var raidgrp = [];
-var raidsize =  20 ;
 
-function makeRaid(raidsize) { // makes an array of Player objects.
-    var grp = [];
+
+var raid = [];
+var raidsize =  20 ;
+// --- Nakes an array of Player objects -------------------------------------------
+function makeRaid(raidsize) {
     var p;
 
-    for (var x = 0; x < raidsize; x++) {; // random class 0-11
+    for (var x = 0; x < raidsize; x++) {;
             
         p = new Player({
             name: HG_TOOLS.generatePlayerName(),
             classid: HG_TOOLS.rngFromTo(0,11).toFixed(),
             level: 100
         });
-        grp.push(p);
+                                        
         raid.push(p);
-
-        if(grp.length === 5){
-            raidgrp.push(grp);
-           grp = [];
-        }
     }
 }
 
+
+//-- Return an array of the most injured people in the raid array, this is abit bugged cant find out why. ----------------
 function getMostInjured(howMany){      
         var raidCpy = raid.slice(0);
         var finalArr = [];
@@ -45,6 +42,3 @@ function getMostInjured(howMany){
     }
 }
 
-function getRaidGroup(groupNumber){
-    return raidgrp[groupNumber-1];
-}

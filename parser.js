@@ -1,6 +1,6 @@
-/* parser.js 
+/* 
 
-   Beginnings of a WoW combatlog parser. It's very simple atm, needs alot more work to be able to handle everything.
+    parser.js 
 
 */
 var clParser = (function(){
@@ -8,23 +8,24 @@ var clParser = (function(){
     
     clParser.testCombatLogSim = function() {
             clSimTest(clParser.parse());
-            while(true);
     }
     
-    // Takes a raw WoW combat log and parses it, returning an array of event-objects.
+    /* parse() Takes a raw WoW combat log and parses it, returning an array of event-objects. */
     clParser.parse = function(rawcombatlog) {
-        var combatlog = rawcombatlog || document.getElementById('cl_input').value.split('\n'),
+        //---- Make an array where each index is a line in the combatlog. --------------------------------
+        var combatlog = rawcombatlog.split('\n') || document.getElementById('cl_input').value.split('\n'),
+        //---- Get the log start time from the first line of the combatlog array -------------------------
             logStartTime = HHMMSStoMS(combatlog[0].slice(6, 17)), 
             currentLine,
             parsedCL = [],
             line;
-
+        //--- Cycle through every element in the combatlog array, and save the data to an object --------
         for (line in combatlog) {
             currentLine = combatlog[line];
             evt_data = currentLine.slice(20).split(',');
             event_obj = {
                 id:            line,
-                timestamp:     HHMMSStoMS(currentLine.slice(6, 17)) - logStartTime, 
+                timestamp:     HHMMSStoMS(currentLine.slice(6, 17)) - logStartTime, // time since log start
                 type:          evt_data[0],
                 source_id:     evt_data[1],
                 source_name:   evt_data[2],
@@ -43,6 +44,7 @@ var clParser = (function(){
                         ].join(''));
         }
         console.log("Parsing complete without error!");
+        //--- Return the finished array of event objects. -------------------------------------------------
         return parsedCL;
     }
     
@@ -63,7 +65,7 @@ var clParser = (function(){
             case 0x11: return 'Froststrike';
         }   
     }
-    
+    /* Messy test function to experiment with the parsed combat log data, it trys to replay the combatlog visually */
     function clSimTest(parsed_combat_log) {
         var instructPtr = 0,
             timeMS = 0,
@@ -101,8 +103,9 @@ var clParser = (function(){
             timeMS += 100; // maybe this should happen first instead?
         }
     }
-
-    function HHMMSStoMS(HHMMSS) {  // Converts 'HH:MM:SS' timeformat to millisecs 
+    
+    // ----- Converts 'HH:MM:SS' timeformat to millisecs -----------------------------------------------
+    function HHMMSStoMS(HHMMSS) {  
         var arr = HHMMSS.split(':');
         return arr[0]*60000*60000 + arr[1]*60000 + arr[2]*1000;
     }

@@ -38,7 +38,7 @@ function init() {
 function aoeDamageTest() {
     var damage_amount;
     for(var x = 0; x < raid.length; x++){
-        damage_amount = HG_TOOLS.rngFromTo(100000,250000)
+        damage_amount = HG_TOOLS.rngFromTo(200000,450000)
         handleDamage({
             source: "test",
             destination: raid[x],
