@@ -45,7 +45,7 @@ function handleDamage(actionObj) {
 
         //------- RESISTANCE --- happens if the damage was not completely avoided ------------------------------------------
         if(!avoided_damage) {
-            var capture_resisted = dmg;
+            var dmg_before_resist = dmg;
             
             //---- Checks if player has any resistance to the damage school. Armor goes under resitance/spellschool aswell ---
             if(action.destination.getResist(action.school)) {
@@ -56,7 +56,7 @@ function handleDamage(actionObj) {
             if(action.destination.getResist('all')) { 
                 dmg *= 1-(action.destination.getResist('all'));
             }
-            output_data.resisted = capture_resisted - dmg;
+            output_data.resisted = dmg_before_resist - dmg;
             
             //---- Checks if any absorb is on the player --------------------------------------------------------------------
             if(action.destination.getResist('absorb')) {
