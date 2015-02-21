@@ -92,8 +92,18 @@ function handleDamage(actionObj) {
 }
 
 /*  Handle healing -- healing handler, not really sure what should happen here yet, but will figure it out.  */
-function handleHealing() {
-        
+function handleHealing(action) {
+         // Todo: add error check if its a valid object with valid data
+         
+         var heal_amount = action.value;
+         console.log(heal_amount);
+         if(action.destination.getAmplification('healing_taken')) {
+             heal_amount *= action.destination.getAmplification('healing_taken');
+         }
+             
+        action.destination.modStat("health", heal_amount);
+    
+        // LOG THE EVENT
 }
 
 /* Aura handling - er faktisk heilt stuck her.

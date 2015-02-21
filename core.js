@@ -26,7 +26,7 @@ function init() {
     // ---- Welcome message for the javascript console -------
     console.log('%c Healing Game - World Of Warcraft healing simulation', 'background: #222; color: #bada55');
     //----- Set a interval for the updateScreen function -----
-    var screenUpdate = setInterval(updateScreen, 100);
+    var screenUpdate = setInterval(updateScreen, 200);
     /* Sidenote: 
        The screenUpdate variable contains the return value of setInterval(), 
        which is an interval id. This can be used to cancel the interval 
@@ -50,9 +50,9 @@ function aoeDamageTest() {
 }
 
 function smartAoeHealTest(){
-    var mostInjured = getMostInjured(7);
-    for(var x = 0; x < mostInjured.length; x++){
-        mostInjured[x].changeHealth(20000);
+    var mostInjured = getMostInjuredPlayers(5);
+    for(index = 0; index < mostInjured.length; index++){
+        mostInjured[index].modStat("health", 170000); // still need a heal handler, this just directly modifies the health.
     }
 }
 
@@ -78,13 +78,13 @@ function updateRaidFrames(){
         //jquery animation for health bars
        $(healthFrameID).animate({
        width: healthPercent
-       }, 50);
+       }, 150);
         
         
         if(playerID == 0){
             $('#player_health').animate({
                 width: healthPercent
-                }, 50);
+                }, 150);
         }
     }
 }
@@ -181,6 +181,8 @@ function buildRaidFrames() {
         auraCont.appendChild(auras);
     } 
 }
+
+// her e det vel mulighet for forbedring, siden begge funksjonane e heilt like. Men lav prio :p
 
 function drawChat() {
     var totalLines = 6;

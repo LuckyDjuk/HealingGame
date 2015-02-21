@@ -13,9 +13,9 @@ var clParser = (function(){
     /* parse() Takes a raw WoW combat log and parses it, returning an array of event-objects. */
     clParser.parse = function(rawcombatlog) {
         //---- Make an array where each index is a line in the combatlog. --------------------------------
-        var combatlog = rawcombatlog.split('\n') || document.getElementById('cl_input').value.split('\n'),
+        var combatlog = rawcombatlog || document.getElementById('cl_input').value.split('\n'),
         //---- Get the log start time from the first line of the combatlog array -------------------------
-            logStartTime = HHMMSStoMS(combatlog[0].slice(6, 17)), 
+            logStartTime = _HHMMSStoMS(combatlog[0].slice(6, 17)), 
             currentLine,
             parsedCL = [],
             line;
@@ -25,13 +25,13 @@ var clParser = (function(){
             evt_data = currentLine.slice(20).split(',');
             event_obj = {
                 id:            line,
-                timestamp:     HHMMSStoMS(currentLine.slice(6, 17)) - logStartTime, // time since log start
+                timestamp:     _HHMMSStoMS(currentLine.slice(6, 17)) - logStartTime, // time since log start
                 type:          evt_data[0],
                 source_id:     evt_data[1],
                 source_name:   evt_data[2],
                 dest_id:       evt_data[5],
                 dest_name:     evt_data[6],
-                spell_school:  schoolNameFromId(+evt_data[8]),
+                spell_school:  _schoolNameFromId(+evt_data[8]),
                 amount:        +evt_data[21] || 0,
                 data:          evt_data
             };
@@ -48,7 +48,7 @@ var clParser = (function(){
         return parsedCL;
     }
     
-    function schoolNameFromId(schoolId) {
+    function _schoolNameFromId(schoolId) {
         switch (schoolId) {
             case 0x0:  return 'Physical'; // ?
             case 0x1:  return 'Physical'; // ?
@@ -105,7 +105,7 @@ var clParser = (function(){
     }
     
     // ----- Converts 'HH:MM:SS' timeformat to millisecs -----------------------------------------------
-    function HHMMSStoMS(HHMMSS) {  
+    function _HHMMSStoMS(HHMMSS) {  
         var arr = HHMMSS.split(':');
         return arr[0]*60000*60000 + arr[1]*60000 + arr[2]*1000;
     }

@@ -46,6 +46,12 @@ function Player(constructorOptions) {
             nature: 0,
             chaos: 0
         },
+        amplifications: {
+            healing_taken: 0,
+            damage_taken: 0,
+            damage_done: 0,
+            healing_done: 0
+        },
         avoidance: {
             miss: 0.04,
             parry: 0.20,
@@ -136,6 +142,15 @@ Player.prototype.getResist = function(resistType) {
         for (resistance in this.a_stats.resistance) {
             if (resistance === resistType){
                 return this.a_stats.resistance[resistance];
+            }
+        }
+        return false;
+}
+
+Player.prototype.getAmplification = function(ampType) {
+       for (amplification in this.a_stats.amplifications) {
+            if (amplification === ampType) {
+                return this.a_stats.amplifications[amplification];
             }
         }
         return false;
