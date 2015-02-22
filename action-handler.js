@@ -32,7 +32,7 @@ function handleDamage(actionObj) {
         }
         
         //-------- AVOIDANCE ------------------------------------------------------------------------------------------------
-        if(action.damageSource === 'melee') {
+        if(action.damageSource === 'melee' || action.isAvoidable) {
             // This needs to be finished
             if(action.destination.getAvoidance('dodge')){avoided_damage === true;}
 
@@ -96,32 +96,15 @@ function handleHealing(action) {
          // Todo: add error check if its a valid object with valid data
          
          var heal_amount = action.value;
-         console.log(heal_amount);
-         if(action.destination.getAmplification('healing_taken')) {
-             heal_amount *= action.destination.getAmplification('healing_taken');
+         if(action.source.getEnhancement('healing_versatality')) {
+            heal_amount *= action.source.getEnhancement('healing_versatality');
          }
-             
+         if(action.destination.getEnhancement('healing_taken')) {
+             heal_amount *= action.destination.getEnhancement('healing_taken');
+         }
+    
         action.destination.modStat("health", heal_amount);
     
-        // LOG THE EVENT
 }
 
-/* Aura handling - er faktisk heilt stuck her.
-
-*/
-var applyAura = (function(){
-    var applyAura = {};
-    
-    
-    applyAura.mod_stat = function() {
-
-    }
-    
-    applyAura.periodic_mod_stat = function() {
-        
-    }
-    
-    
-    return applyAura;
-    
-})();
+/* Aura handling - the next thing that needs to be inplace before making spells */

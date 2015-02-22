@@ -46,24 +46,22 @@ function Player(constructorOptions) {
             nature: 0,
             chaos: 0
         },
-        amplifications: {
-            healing_taken: 0,
-            damage_taken: 0,
-            damage_done: 0,
-            healing_done: 0
-        },
         avoidance: {
             miss: 0.04,
             parry: 0.20,
             dodge: 0.20
         },
         enhancements: {
-            healing_versatality: 0,
+            healing_versatality: 1.8,
             damage_versatality: 0,
             spellpower: 0,
             crit: 0,
             haste: 0,
             mastery: 0,
+            healing_taken: 0,
+            damage_taken: 0,
+            damage_done: 0,
+            healing_done: 0
         }
 
     };
@@ -147,10 +145,10 @@ Player.prototype.getResist = function(resistType) {
         return false;
 }
 
-Player.prototype.getAmplification = function(ampType) {
-       for (amplification in this.a_stats.amplifications) {
-            if (amplification === ampType) {
-                return this.a_stats.amplifications[amplification];
+Player.prototype.getEnhancement = function(enhancementType) {
+       for (enhancement in this.a_stats.enhancements) {
+            if (enhancement === enhancementType) {
+                return this.a_stats.enhancements[enhancement];
             }
         }
         return false;

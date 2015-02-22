@@ -100,7 +100,7 @@ var clParser = (function(){
                 clearInterval(timer);
                 return;
             }
-            timeMS += 100; // maybe this should happen first instead?
+            timeMS += 100;
         }
     }
     
