@@ -1,6 +1,5 @@
 /* Actionhandler.js */
 
-
 /* 
     ### DAMAGE HANDLER ###
     This should be able to handle any basic form of damage that exists in the game.

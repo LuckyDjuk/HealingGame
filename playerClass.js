@@ -38,6 +38,8 @@ function Player(constructorOptions) {
     this.a_stats = {  
         
         health: this.stats.maxHealth,
+        holy_power: 0,
+        mana: 0,
         resistance: {
             absorb: 0,  // Absorbs goes under resistance aswell to avoid redudancy. Logically it makes sense too.
             physical: 0.30,
@@ -117,6 +119,7 @@ Player.prototype.useAbility = function(spellObject) {
             return;
         }
     }
+    
     
     // Execute cast
 }

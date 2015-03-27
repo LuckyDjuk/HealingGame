@@ -65,7 +65,7 @@ var clParser = (function(){
             case 0x8:  return 'Nature';
             case 0x9:  return 'Stormstrike';
             case 0xA:  return 'Holystorm';
-            case 0xC:  return 'Firestorm';
+            case 0xB:  return 'Firestorm';
             case 0xC:  return 'Firestorm';
             case 0x11: return 'Froststrike';
         }   
