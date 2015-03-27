@@ -6,14 +6,19 @@
 var clParser = (function(){
     clParser = {};
     
+    /* test function */
     clParser.testCombatLogSim = function() {
-            clSimTest(clParser.parse());
+            clSimTest(clParser.parse(document.getElementById('cl_input').value));
     }
     
     /* parse() Takes a raw WoW combat log and parses it, returning an array of event-objects. */
     clParser.parse = function(rawcombatlog) {
+        
+        if (!rawcombatlog) {
+            return;
+        }
         //---- Make an array where each index is a line in the combatlog. --------------------------------
-        var combatlog = rawcombatlog || document.getElementById('cl_input').value.split('\n'),
+        var combatlog = rawcombatlog.split('\n'),
         //---- Get the log start time from the first line of the combatlog array -------------------------
             logStartTime = _HHMMSStoMS(combatlog[0].slice(6, 17)), 
             currentLine,
@@ -43,7 +48,7 @@ var clParser = (function(){
                                             " --- Value --- ", event_obj.amount     
                         ].join(''));
         }
-        console.log("Parsing complete without error!");
+        console.log("Parsing complete without error! ( " + combatlog.length + " lines total )");
         //--- Return the finished array of event objects. -------------------------------------------------
         return parsedCL;
     }
@@ -100,7 +105,7 @@ var clParser = (function(){
                 clearInterval(timer);
                 return;
             }
-            timeMS += 100; // maybe this should happen first instead?
+            timeMS += 100;
         }
     }
     

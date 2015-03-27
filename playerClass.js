@@ -1,7 +1,11 @@
 
 function Player(constructorOptions) {
-
-    this.id = null; // A unique id should be generated for each instance. Not implelmented yet
+    // --- Make sure not invoked as function ------ //
+    if (!(this instanceof Player)) {
+       throw new Error("Player class invoked as function?");
+    }
+    
+    this.id = constructorOptions.id || null; // A unique id should be generated for each instance. Not implelmented yet
     this.name = constructorOptions.name || 'noName:(';
     this.classID = constructorOptions.classid || 0;
     this.level = constructorOptions.level || 100;
@@ -17,7 +21,7 @@ function Player(constructorOptions) {
     this.onGlobal = false;
     
     // ---- Stats from gear ---------------------------------------------------------------------------------------------
-    this.stats = {  
+    this.stats = {
         
         int: 2000,
         stamina: 2000,
@@ -28,15 +32,15 @@ function Player(constructorOptions) {
         spirit: 4555,
         armorRating: 2413,
         maxMana: 300000,
-        maxHealth: 700454
+        maxHealth: 310000
     };
     // ----- Calculated stats for spells -------------------------------------------------------------------------------
     this.a_stats = {  
         
         health: this.stats.maxHealth,
-        resistance: { 
-            absorb: 190000,  // Absorbs goes under resistance aswell to avoid redudancy. Logically it makes sense too.
-            physical: 0.40,
+        resistance: {
+            absorb: 0,  // Absorbs goes under resistance aswell to avoid redudancy. Logically it makes sense too.
+            physical: 0.30,
             magic: 0,
             all: 0, 
             frost: 0,
@@ -46,29 +50,27 @@ function Player(constructorOptions) {
             nature: 0,
             chaos: 0
         },
-        amplifications: {
-            healing_taken: 0,
-            damage_taken: 0,
-            damage_done: 0,
-            healing_done: 0
-        },
         avoidance: {
             miss: 0.04,
             parry: 0.20,
             dodge: 0.20
         },
         enhancements: {
-            healing_versatality: 0,
+            healing_versatality: 1.8,
             damage_versatality: 0,
             spellpower: 0,
             crit: 0,
             haste: 0,
             mastery: 0,
+            healing_taken: 0,
+            damage_taken: 0,
+            damage_done: 0,
+            healing_done: 0
         }
 
     };
     // ----- Auras -------------------------------------------------------------------------------------------------------
-    this.auras = {};
+    this.auras = [];
  
     
     //------ Spells ---- For testing -------------------------------------------------------------------------------------
@@ -102,7 +104,7 @@ Player.prototype.useAbility = function(spellObject) {
         return;
     }
     
-    if (player.stats.mana < spell.manacost){
+    if (!player.hasResource(spell.powerType,spell.powerCost)){
         console.log("Not enough mana to use spell");
     }
 
@@ -147,15 +149,18 @@ Player.prototype.getResist = function(resistType) {
         return false;
 }
 
-Player.prototype.getAmplification = function(ampType) {
-       for (amplification in this.a_stats.amplifications) {
-            if (amplification === ampType) {
-                return this.a_stats.amplifications[amplification];
+Player.prototype.getEnhancement = function(enhancementType) {
+       for (enhancement in this.a_stats.enhancements) {
+            if (enhancement === enhancementType) {
+                return this.a_stats.enhancements[enhancement];
             }
         }
         return false;
 }
 
+Player.prototype.getAvoidance = function(avoidanceType){ 
+}
+    
 Player.prototype.setTarget = function(target) {
         this.currentTarget = target;
 
@@ -165,9 +170,6 @@ Player.prototype.getHealthPercent = function () {
         return (this.a_stats.health / this.stats.maxHealth) * 100;
 };
 
-Player.prototype.getAvoidance = function(avoidanceType){ 
-}
-    
 // Returns true of false based on the player having the aura.
 Player.prototype.hasAura = function(auraIDorName){
 };

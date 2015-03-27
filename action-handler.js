@@ -32,7 +32,7 @@ function handleDamage(actionObj) {
         }
         
         //-------- AVOIDANCE ------------------------------------------------------------------------------------------------
-        if(action.damageSource === 'melee') {
+        if(action.damageSource === 'melee' || action.isAvoidable) {
             // This needs to be finished
             if(action.destination.getAvoidance('dodge')){avoided_damage === true;}
 
@@ -70,6 +70,7 @@ function handleDamage(actionObj) {
                 }
                 // ---- Partial absorb ---------------------------------------------------
                 else {
+                  action.destination.auras = []; // Test - remove later
                   var partial_absorb_amount;
                   dmg -= player_absorb_amount;
                   partial_absorb_amount = dmg_before_absorb - dmg;
@@ -77,6 +78,7 @@ function handleDamage(actionObj) {
                   output_data.absorbed = partial_absorb_amount;
                 }
             }
+            //---- Health --- last line of defense --------------------------------------------------------------------------
         }
     
         //----- OUTPUT ----- Some output to the chat to spot errors ---------------------------------------------------------
@@ -96,32 +98,53 @@ function handleHealing(action) {
          // Todo: add error check if its a valid object with valid data
          
          var heal_amount = action.value;
-         console.log(heal_amount);
-         if(action.destination.getAmplification('healing_taken')) {
-             heal_amount *= action.destination.getAmplification('healing_taken');
+    
+         // -- Calculate versatality gain
+         if(action.source.getEnhancement('healing_versatality')) {
+            heal_amount *= action.source.getEnhancement('healing_versatality');
          }
-             
+    
+         // -- Check for modifiers that increse healing taken
+         if(action.destination.getEnhancement('healing_taken')) {
+             heal_amount *= action.destination.getEnhancement('healing_taken');
+         }
+         // -- Check for overhealing -- //
+         if((action.destination.a_stats.health + heal_amount) > action.destination.stats.maxHealth) {
+            var overhealing = (action.destination.a_stats.health + heal_amount) - action.destination.stats.maxHealth;
+            heal_amount = heal_amount - overhealing;
+            
+         }
+        dbg_chat.addLine(" Healed " + action.destination.name + " for : " + heal_amount + "(O: " + overhealing + ")");
         action.destination.modStat("health", heal_amount);
     
-        // LOG THE EVENT
 }
 
-/* Aura handling - er faktisk heilt stuck her.
-
+/* Aura handling - 
+    3 types of auras we definetly need.
+    interval:
+    duration:
+    trigger: melee_damage_taken
+    effect: 2313;
 */
-var applyAura = (function(){
-    var applyAura = {};
-    
-    
-    applyAura.mod_stat = function() {
 
-    }
+function applyAura_absorb() {
+    var action = {destination: playerControlledUnit.currentTarget};
     
-    applyAura.periodic_mod_stat = function() {
-        
-    }
+    action.destination.auras.push({
+        id: 0,
+        effect: 'absorb',
+        spellID: 17,
+        duration: 12000,
+        trigger: 0,
+        amount: 130000,
+        interval: 0,
+        absorb_priority: 0
+    });
+    action.destination.a_stats.resistance.absorb += 130000;
     
-    
-    return applyAura;
-    
-})();
+}
+
+
+function applyAura_trigger() {
+    // ex. Earth Shield: It heals when the target recives melee attacks( melee attacks beeing the trigger)
+}

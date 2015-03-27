@@ -1,18 +1,19 @@
 /*
     Core.js
 */
-
 var mainChat = new Chat("mainchat");
 var dbg_chat = new Chat("dbg");
-var humanPlayer;
+var playerControlledUnit;
 
+var testOptions = {
+    aoe_amount: 40000,
+    aoeheal_amount: 40000,
+    aoeheal_targets: 5
+};
 function init() {
-    // --- Reset stuff --------------------------------------
-    raidgrp = [];
-    document.getElementById('raidcontainer').innerHTML = '';
-    raid = [];
+    
     makeRaid(raidsize);
-    humanPlayer = raid[0];
+    playerControlledUnit = raid[0];
     // ----- Build the UI elements ---------------------------
     buildRaidFrames();
     buildPlayerFrame();
@@ -22,11 +23,16 @@ function init() {
     optionMenu.add(clParser,'testCombatLogSim');
     optionMenu.add(window,'smartAoeHealTest');
     optionMenu.add(window,'aoeDamageTest');
-    optionMenu.add(window,'buildSpellBar');
+    optionMenu.add(testOptions, 'aoe_amount',50000,500000);
+    optionMenu.add(testOptions, 'aoeheal_amount',20000,100000);
+    optionMenu.add(testOptions, 'aoeheal_targets',1,20);
     // ---- Welcome message for the javascript console -------
     console.log('%c Healing Game - World Of Warcraft healing simulation', 'background: #222; color: #bada55');
     //----- Set a interval for the updateScreen function -----
     var screenUpdate = setInterval(updateScreen, 200);
+    var aoe_damage_test = setInterval(stoneBreath,11200);
+    var chain_heal_test = setInterval(smartAoeHealTest,1800);
+    //var hots_test = setInterval(aoe_hots, 1600);
     /* Sidenote: 
        The screenUpdate variable contains the return value of setInterval(), 
        which is an interval id. This can be used to cancel the interval 
@@ -35,10 +41,36 @@ function init() {
 }
 
 
+function stoneBreath() {
+    
+    var x = setInterval(aoeDamageTest,1000);
+    var ticks = 0;
+    function aoeDamageTest() {
+        if(ticks >= 6){
+            clearInterval(x);
+            return;
+            
+        }
+        else {ticks++};
+        var damage_amount;
+        for (var x = 0; x < raid.length; x++) {
+            damage_amount = testOptions.aoe_amount;
+            handleDamage({
+                source: "test",
+                destination: raid[x],
+                school: 'nature',
+                damageSource: 'melee',
+                value: damage_amount
+            });
+        }
+    }
+    
+}
+
 function aoeDamageTest() {
     var damage_amount;
     for(var x = 0; x < raid.length; x++){
-        damage_amount = HG_TOOLS.rngFromTo(200000,450000)
+        damage_amount = testOptions.aoe_amount;
         handleDamage({
             source: "test",
             destination: raid[x],
@@ -50,11 +82,28 @@ function aoeDamageTest() {
 }
 
 function smartAoeHealTest(){
-    var mostInjured = getMostInjuredPlayers(5);
+    var mostInjured = getMostInjuredPlayers(testOptions.aoeheal_targets);
     for(index = 0; index < mostInjured.length; index++){
-        mostInjured[index].modStat("health", 170000); // still need a heal handler, this just directly modifies the health.
+        handleHealing({
+            source: mostInjured[index],
+            destination: mostInjured[index],
+            value: testOptions.aoeheal_amount - (index * 2000)
+        });
     }
 }
+
+
+function aoe_hots(){
+    var mostInjured = getMostInjuredPlayers(17);
+    for(index = 0; index < mostInjured.length; index++){
+        handleHealing({
+            source: mostInjured[index],
+            destination: mostInjured[index],
+            value: 66000
+        });
+    }
+}
+
 
 function updateScreen() { // updates the UI   
     updateRaidFrames();
@@ -64,49 +113,50 @@ function updateScreen() { // updates the UI
 
 function updateRaidFrames(){
     var playerID,
-        player,
-        health,
-        healthPercent,
-        healthFrameID;
-    // Goes through every raidmemeber and changes the width of their health frames width based on what HP they got.
-    for (playerID = 0; playerID < raidsize; playerID++) {
-        player = raid[playerID];
-        health = player.getHealthPercent();
-        healthPercent = health.toFixed(0) + "%";
-        healthFrameID = "#health" + playerID;
+        unitHealthPercent,
+        cssHealthPercent,
+        iconUrl;
+
+    for ( playerID = 0; playerID < raidsize; playerID++ ) {
         
-        //jquery animation for health bars
-       $(healthFrameID).animate({
-       width: healthPercent
-       }, 150);
+        // --- Updates/animates the health bars -------------------------------------
+        unitHealthPercent = ( unitHealth(playerID) / unitHealthMax(playerID) ) * 100
+        cssHealthPercent = unitHealthPercent.toFixed(0) + "%";
+        targetHealthFrameId = "#health" + playerID;
         
+        $(targetHealthFrameId).animate({
+        width: cssHealthPercent
+        }, 150);
+    
         
-        if(playerID == 0){
-            $('#player_health').animate({
-                width: healthPercent
-                }, 150);
+        // -------- Draw/update Auras -----------------------------------------------
+        if ( unitAura(playerID) ) {      
+                
+            iconUrl = getSpellIconURL(unitAura(playerID)[0].spellID);
+            console.log(iconUrl);
+            $('#'+playerID).css('background-image', "url("+iconUrl+")");
         }
+        
+        else {
+            $('#'+playerID).css('background-image', "");
+
+        }
+    
     }
 }
-/* Det e stygt men det funka :p , alt ditta blir vel replaca med ett 2d bibliotek etterkvert uansett */
 
-
-function buildTargetFrame(){
-}
 
 function buildPlayerFrame(){
-    if(!humanPlayer){ return; };
     var info_txt = document.createElement('p'),
         mana = document.createElement('div'),
         container = document.createElement('div'),
         health = document.createElement('div');
- 
     
     container.style.cssText = " top: 50%; left: 30%; width: 150px; height 45px; position: absolute; background-color: black;";
     mana.style.cssText = "float: left; width: 100%; height: 15px; background-color: blue;";
-    health.style.cssText =  "float: left; width: 100%; height: 30px; background-color: "+getClassColor(humanPlayer.classID)+";";
+    health.style.cssText =  "float: left; width: 100%; height: 30px; background-color: "+getClassColor(playerControlledUnit.classID)+";";
     info_txt.style.cssText = "margin-left: 5px; font-size: 11px;";
-    info_txt.innerHTML = humanPlayer.name + "   " + humanPlayer.level;
+    info_txt.innerHTML = playerControlledUnit.name + "   " + playerControlledUnit.level;
 
     container.id = "target_cont";
     health.id = "player_health";
@@ -122,16 +172,17 @@ function buildPlayerFrame(){
 function setTarget(event){
 
         var raidid = parseInt(event.id.replace("border",""));
-        humanPlayer.setTarget(raid[raidid]);
-        console.log("Your target is now: " + humanPlayer.currentTarget.name);
+        playerControlledUnit.setTarget(raid[raidid]);
+        applyAura_absorb();
+        console.log("Your target is now: " + playerControlledUnit.currentTarget.name);
             
 }
 
 function buildSpellBar(){
     
-    if(!humanPlayer){ return; };
+    if(!playerControlledUnit){ return; };
     
-    humanPlayer.spells.map(function(spell){
+    playerControlledUnit.spells.map(function(spell){
         var iconURL = "http://wow.zamimg.com/images/wow/icons/large/"+ getSpellData(spell.id).icon + ".jpg";
         addActionButton(iconURL);
     });
@@ -182,7 +233,26 @@ function buildRaidFrames() {
     } 
 }
 
-// her e det vel mulighet for forbedring, siden begge funksjonane e heilt like. Men lav prio :p
+/*
+function newCDTimer(timerObject) {
+         var obj = timerObject;
+    
+         boss_timers.push(obj);
+         
+         var interval = setInterval(updateTimeLeft, 100);
+         
+         function updateTimeLeft() {
+             obj.timeleft -= 100;
+             if ( obj.timeleft <= 0 ) {
+                 if ( obj.repeat == true ) {
+                    obj.timeleft = obj.cd;
+                    return;
+                 }
+                 clearInterval(interval);
+             }
+         }
+}
+*/
 
 function drawChat() {
     var totalLines = 6;
